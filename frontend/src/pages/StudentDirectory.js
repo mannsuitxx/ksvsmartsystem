@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -10,7 +10,7 @@ const StudentDirectory = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     setLoading(true);
     try {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, params: filters };
@@ -18,14 +18,14 @@ const StudentDirectory = () => {
       setStudents(res.data);
     } catch (e) { console.error(e); }
     setLoading(false);
-  };
+  }, [filters]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
         fetchStudents();
     }, 500);
     return () => clearTimeout(timer);
-  }, [filters]);
+  }, [filters, fetchStudents]);
 
   return (
     <Layout title="Student Directory">

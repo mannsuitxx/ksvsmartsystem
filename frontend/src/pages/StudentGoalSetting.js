@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 import { Doughnut } from 'react-chartjs-2';
 import Layout from '../components/Layout';
-import { API_URL } from '../config';
 
 const StudentGoalSetting = () => {
     const [targetCGPA, setTargetCGPA] = useState(8.5);
-    const [currentCGPA, setCurrentCGPA] = useState(7.2); // Mock initial
+    const [currentCGPA] = useState(7.2); // Mock initial
     const [requiredPerformance, setRequiredPerformance] = useState(0);
 
     useEffect(() => {
@@ -19,13 +16,11 @@ const StudentGoalSetting = () => {
     const calculateRequirements = () => {
         // Mock Calculation logic
         const gap = targetCGPA - currentCGPA;
-        let effort = 0;
-        if (gap <= 0) effort = 0; // Already there
-        else effort = gap * 1.5; // Arbitrary difficulty multiplier
-
+        
         // Normalized to 0-100% "Effort Boost" needed
         let boost = (gap / 10) * 100 * 2; 
         if (boost > 100) boost = 100;
+        if (boost < 0) boost = 0;
         
         setRequiredPerformance(boost);
         localStorage.setItem('studentTargetCGPA', targetCGPA);

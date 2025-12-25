@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { API_URL } from '../config';
 
@@ -7,17 +7,17 @@ const MentorInterventionPanel = ({ studentId }) => {
   const [form, setForm] = useState({ type: 'Meeting', remarks: '', status: 'Open', actionPlan: '' });
   const [loading, setLoading] = useState(false);
 
-  const fetchInterventions = async () => {
+  const fetchInterventions = useCallback(async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
       const res = await axios.get(`${API_URL}/api/mentor/intervention/${studentId}`, config);
       setInterventions(res.data);
     } catch (e) { console.error(e); }
-  };
+  }, [studentId]);
 
   useEffect(() => {
     if (studentId) fetchInterventions();
-  }, [studentId]);
+  }, [studentId, fetchInterventions]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -27,11 +27,7 @@ const FacultyStudentList = () => {
         enrollmentNumber: '', firstName: '', lastName: '', email: '', department: 'Computer Engineering', currentSemester: 1
     });
 
-    useEffect(() => {
-        if(view === 'list') fetchStudents();
-    }, [view, query, dept, sem]);
-
-    const fetchStudents = async () => {
+    const fetchStudents = useCallback(async () => {
         setLoading(true);
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
@@ -44,7 +40,11 @@ const FacultyStudentList = () => {
             setStudents(res.data);
         } catch (err) { console.error(err); }
         setLoading(false);
-    };
+    }, [query, dept, sem]);
+
+    useEffect(() => {
+        if(view === 'list') fetchStudents();
+    }, [view, fetchStudents]);
 
     // --- BULK CSV LOGIC ---
     const handleFileSelect = (e) => {

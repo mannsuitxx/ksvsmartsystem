@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Layout from '../../components/Layout';
 import moment from 'moment';
-import { API_URL } from '../../config';
 
 const AuditLogs = () => {
     // Reusing the HOD audit logic or creating a specific Admin one.

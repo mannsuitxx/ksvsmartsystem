@@ -111,7 +111,7 @@ const Login = () => {
           </form>
 
           <div className="text-center mt-3">
-            <a href="#" className="text-decoration-none small text-muted">Forgot Password?</a>
+            <button type="button" className="btn btn-link text-decoration-none small text-muted p-0" onClick={() => alert('Please contact Admin to reset your password.')}>Forgot Password?</button>
           </div>
         </div>
       </div>
