@@ -259,29 +259,39 @@ const FacultyStudentList = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {students.map(s => (
-                                            <tr key={s._id}>
-                                                <td className="ps-4 fw-bold text-primary">{s.enrollmentNumber}</td>
-                                                <td>{s.firstName} {s.lastName}</td>
-                                                <td>{s.email}</td>
-                                                <td>{s.department}</td>
-                                                <td>{s.currentSemester}</td>
-                                                <td className="text-end pe-4">
-                                                    <button 
-                                                        className="btn btn-sm btn-outline-primary me-2"
-                                                        onClick={() => navigate(`/faculty/student/${s.enrollmentNumber}`)}
-                                                    >
-                                                        View
-                                                    </button>
-                                                    <button 
-                                                        className="btn btn-sm btn-outline-danger"
-                                                        onClick={() => handleDelete(s._id, s.firstName)}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </td>
+                                        {loading ? (
+                                            <tr>
+                                                <td colSpan="6" className="text-center py-4">Loading students...</td>
                                             </tr>
-                                        ))}
+                                        ) : students.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="6" className="text-center py-4">No students found.</td>
+                                            </tr>
+                                        ) : (
+                                            students.map(s => (
+                                                <tr key={s._id}>
+                                                    <td className="ps-4 fw-bold text-primary">{s.enrollmentNumber}</td>
+                                                    <td>{s.firstName} {s.lastName}</td>
+                                                    <td>{s.email}</td>
+                                                    <td>{s.department}</td>
+                                                    <td>{s.currentSemester}</td>
+                                                    <td className="text-end pe-4">
+                                                        <button 
+                                                            className="btn btn-sm btn-outline-primary me-2"
+                                                            onClick={() => navigate(`/faculty/student/${s.enrollmentNumber}`)}
+                                                        >
+                                                            View
+                                                        </button>
+                                                        <button 
+                                                            className="btn btn-sm btn-outline-danger"
+                                                            onClick={() => handleDelete(s._id, s.firstName)}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
