@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const FacultyImpactReport = () => {
     const [data, setData] = useState([]);
@@ -23,12 +22,7 @@ const FacultyImpactReport = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="hod" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Faculty Impact Report" />
-                <div className="container-fluid p-4">
-
+        <Layout title="Faculty Impact Report">
                     <div className="card shadow border-0">
                         <div className="card-header bg-white py-3">
                             <h6 className="m-0 font-weight-bold text-primary">Faculty Performance Matrix</h6>
@@ -64,7 +58,6 @@ const FacultyImpactReport = () => {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    {/* Mock Impact Calculation */}
                                                     <div className="text-warning">
                                                         ★★★★☆
                                                     </div>
@@ -77,10 +70,7 @@ const FacultyImpactReport = () => {
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
-import { Bar, Pie } from 'react-chartjs-2';
+import Layout from '../components/Layout';
+import { Pie } from 'react-chartjs-2';
 
 const ClassHealthReport = () => {
     const [data, setData] = useState(null);
@@ -23,11 +22,10 @@ const ClassHealthReport = () => {
         fetchAnalytics();
     }, []);
 
-    // Helper: Calculate Risk Breakdown based on low engagement count vs total (mock total for now)
     const getRiskChartData = () => {
         if (!data) return {};
         const atRiskCount = data.lowEngagement.length;
-        const totalEstimate = 60; // Assuming 60 students per class for prototype
+        const totalEstimate = 60; 
         const safeCount = Math.max(0, totalEstimate - atRiskCount);
 
         return {
@@ -41,13 +39,8 @@ const ClassHealthReport = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="faculty" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Class Health Report" />
-                <div className="container-fluid p-4">
-
-                    {loading ? <p>Generating Report...</p> : (
+        <Layout title="Class Health Report">
+                    {loading ? <p className="text-center p-5">Generating Report...</p> : (
                         <>
                             <div className="row g-4 mb-4">
                                 <div className="col-md-6 col-lg-4">
@@ -55,7 +48,7 @@ const ClassHealthReport = () => {
                                         <div className="card-body">
                                             <h6 className="text-muted text-uppercase mb-2">Overall Risk Profile</h6>
                                             <div style={{height: '200px'}}>
-                                                <Pie data={getRiskChartData()} options={{maintainAspectRatio: false}} />
+                                                <Pie data={getRiskChartData()} options={{maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }}} />
                                             </div>
                                             <div className="text-center mt-3">
                                                 <small className="text-muted">Based on attendance & engagement patterns</small>
@@ -81,7 +74,6 @@ const ClassHealthReport = () => {
                                                     </thead>
                                                     <tbody>
                                                         {data.classHealth.map((sub, i) => {
-                                                            // Calculate average pass rate for this subject from assessments
                                                             const subjectAssessments = data.assessments.filter(a => a.subject === sub.subject);
                                                             const avgPass = subjectAssessments.length > 0 
                                                                 ? (subjectAssessments.reduce((sum, a) => sum + parseFloat(a.passRate), 0) / subjectAssessments.length).toFixed(1)
@@ -146,10 +138,7 @@ const ClassHealthReport = () => {
                             </div>
                         </>
                     )}
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

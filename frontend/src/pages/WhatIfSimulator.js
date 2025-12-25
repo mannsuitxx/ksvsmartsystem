@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import axios from 'axios';
 
 const WhatIfSimulator = () => {
@@ -32,11 +31,7 @@ const WhatIfSimulator = () => {
   };
 
   return (
-    <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-      <Sidebar role="student" />
-      <div className="flex-grow-1 d-flex flex-column">
-        <Navbar title="What-If Simulator" />
-        <div className="container-fluid p-4">
+    <Layout title="What-If Simulator">
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card shadow border-0">
@@ -100,9 +95,7 @@ const WhatIfSimulator = () => {
                     </div>
                 </div>
             </div>
-        </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 

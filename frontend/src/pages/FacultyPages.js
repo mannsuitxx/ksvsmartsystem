@@ -1,24 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
-
-const FacultyLayout = ({ children, title }) => (
-  <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-    <Sidebar role="faculty" />
-    <div className="flex-grow-1 d-flex flex-column">
-      <Navbar title={title} />
-      <div className="container-fluid p-4">
-        {children}
-      </div>
-    </div>
-  </div>
-);
 
 // --- 1. DASHBOARD OVERVIEW ---
 export const FacultyDashboardHome = () => {
@@ -83,7 +69,7 @@ export const FacultyDashboardHome = () => {
     };
 
     return (
-        <FacultyLayout title="Faculty Overview">
+        <Layout title="Faculty Overview">
             <div className="row g-4 mb-4">
                 <div className="col-md-6">
                     <div className="card shadow border-0 bg-primary text-white h-100">
@@ -131,7 +117,7 @@ export const FacultyDashboardHome = () => {
                     </div>
                 </div>
             </div>
-        </FacultyLayout>
+        </Layout>
     );
 };
 
@@ -148,7 +134,7 @@ export const FacultyHistory = () => {
     }, []);
 
     return (
-        <FacultyLayout title="Attendance History">
+        <Layout title="Attendance History">
             <div className="card shadow border-0">
                 <div className="table-responsive">
                     <table className="table table-hover table-striped mb-0 align-middle">
@@ -166,7 +152,7 @@ export const FacultyHistory = () => {
                     </table>
                 </div>
             </div>
-        </FacultyLayout>
+        </Layout>
     );
 };
 
@@ -210,7 +196,7 @@ export const FacultyAttendance = () => {
     };
 
     return (
-        <FacultyLayout title="Upload Attendance">
+        <Layout title="Upload Attendance">
              {msg && <div className="alert alert-info">{msg}</div>}
              <div className="card shadow border-0 p-4">
                  <form onSubmit={handleSubmit}>
@@ -240,7 +226,7 @@ export const FacultyAttendance = () => {
                     <button className="btn btn-primary w-100 mt-3">Submit</button>
                  </form>
              </div>
-        </FacultyLayout>
+        </Layout>
     );
 };
 
@@ -285,7 +271,7 @@ export const FacultyMarks = () => {
     };
 
     return (
-        <FacultyLayout title="Upload Marks">
+        <Layout title="Upload Marks">
             {msg && <div className="alert alert-info">{msg}</div>}
             <div className="card shadow border-0 p-4">
                 <form onSubmit={handleSubmit}>
@@ -317,6 +303,6 @@ export const FacultyMarks = () => {
                     <button className="btn btn-success w-100 mt-3">Upload</button>
                 </form>
             </div>
-        </FacultyLayout>
+        </Layout>
     );
 };

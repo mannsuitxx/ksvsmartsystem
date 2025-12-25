@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const AttendanceWarning = () => {
     const [subjects, setSubjects] = useState([]);
@@ -51,11 +50,7 @@ const AttendanceWarning = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Attendance Recovery" />
-                <div className="container-fluid p-4">
+        <Layout title="Attendance Recovery">
 
                     <div className="alert alert-info shadow-sm border-0 mb-4">
                         <h5 className="alert-heading fw-bold"><i className="bi bi-info-circle-fill me-2"></i>How this works</h5>
@@ -117,9 +112,7 @@ const AttendanceWarning = () => {
                         ))}
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

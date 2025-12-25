@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -54,12 +53,10 @@ const MentorDashboard = () => {
         } catch(e) { alert('Error logging intervention'); }
     };
 
+    if (loading) return <div className="p-5 text-center text-muted">Loading Mentees...</div>;
+
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-            <Sidebar role="mentor" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Mentor Panel" />
-                <div className="container-fluid p-4">
+        <Layout title="Mentor Panel">
                     <div className="row g-4 mb-4">
                         <div className="col-md-8">
                             <h4 className="fw-bold mb-4">My Mentee Cohort</h4>
@@ -95,9 +92,7 @@ const MentorDashboard = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

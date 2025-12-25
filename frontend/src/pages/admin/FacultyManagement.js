@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 
 const FacultyManagement = () => {
     const [faculty, setFaculty] = useState([]);
@@ -51,11 +50,7 @@ const FacultyManagement = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Faculty Management" />
-                <div className="container-fluid p-4">
+        <Layout title="Faculty Management">
 
                     <div className="row">
                         {/* FORM */}
@@ -158,9 +153,7 @@ const FacultyManagement = () => {
 
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import moment from 'moment';
 
 const MentorInteractionHistory = () => {
@@ -34,12 +33,7 @@ const MentorInteractionHistory = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Mentor Interaction Log" />
-                <div className="container-fluid p-4">
-
+        <Layout title="Mentor Interaction Log">
                     <div className="row">
                         <div className="col-12">
                             <div className="card shadow border-0">
@@ -47,7 +41,7 @@ const MentorInteractionHistory = () => {
                                     <h6 className="m-0 font-weight-bold text-primary">Mentorship Timeline</h6>
                                 </div>
                                 <div className="card-body">
-                                    {loading ? <p>Loading history...</p> : (
+                                    {loading ? <p className="text-center p-5">Loading history...</p> : (
                                         <div className="timeline">
                                             {interventions.length === 0 && <p className="text-center text-muted">No interactions recorded yet.</p>}
                                             
@@ -110,10 +104,7 @@ const MentorInteractionHistory = () => {
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

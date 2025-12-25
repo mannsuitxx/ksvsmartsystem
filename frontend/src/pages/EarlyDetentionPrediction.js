@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const EarlyDetentionPrediction = () => {
     const [data, setData] = useState([]);
@@ -23,12 +22,7 @@ const EarlyDetentionPrediction = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="hod" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Early Detention Prediction" />
-                <div className="container-fluid p-4">
-
+        <Layout title="Early Detention Prediction">
                      <div className="row mb-4">
                         <div className="col-12">
                             <div className="card border-0 shadow-sm bg-danger text-white">
@@ -59,7 +53,7 @@ const EarlyDetentionPrediction = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {loading ? <tr><td colSpan="5" className="p-4 text-center">Running simulations...</td></tr> : data.map((s, idx) => (
+                                        {loading ? <tr><td colSpan="5" className="text-center p-4">Running simulations...</td></tr> : data.map((s, idx) => (
                                             <tr key={idx}>
                                                 <td className="ps-4">
                                                     <div className="fw-bold">{s.name}</div>
@@ -81,16 +75,13 @@ const EarlyDetentionPrediction = () => {
                                                 </td>
                                             </tr>
                                         ))}
-                                        {data.length === 0 && !loading && <tr><td colSpan="5" className="p-4 text-center text-success">No students projected for detention!</td></tr>}
+                                        {data.length === 0 && !loading && <tr><td colSpan="5" className="text-center p-4 text-success">No students projected for detention!</td></tr>}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

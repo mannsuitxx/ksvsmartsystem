@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 
 const MentorManagement = () => {
     const [faculty, setFaculty] = useState([]);
@@ -21,10 +20,7 @@ const MentorManagement = () => {
             const facRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/faculty`, config);
             setFaculty(facRes.data);
             
-            // Fetch Students (Using existing Faculty Student List API or generic one)
-            // Assuming we reuse the one from FacultyController for simplicity or create a new one.
-            // Using /api/faculty/students for now if accessible or /api/admin/users filtered
-            // Let's use the one we have:
+            // Fetch Students
             const stuRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
             setStudents(stuRes.data);
         } catch (err) { console.error(err); }
@@ -66,11 +62,7 @@ const MentorManagement = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Mentor Management" />
-                <div className="container-fluid p-4">
+        <Layout title="Mentor Management">
 
                     <div className="row g-4">
                         
@@ -163,9 +155,7 @@ const MentorManagement = () => {
 
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

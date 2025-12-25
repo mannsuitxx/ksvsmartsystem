@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const FacultyStudentList = () => {
     const [students, setStudents] = useState([]);
@@ -114,23 +113,19 @@ const FacultyStudentList = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-            <Sidebar role="faculty" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Student Management" />
-                <div className="container-fluid p-4">
+        <Layout title="Student Management">
                     
                     {/* ACTION BAR */}
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <h4 className="fw-bold mb-0">Student Directory</h4>
-                        <div>
-                            <button className={`btn me-2 ${view === 'list' ? 'btn-outline-primary' : 'btn-light'}`} onClick={() => setView('list')}>
+                        <div className="d-flex flex-wrap gap-2">
+                            <button className={`btn ${view === 'list' ? 'btn-outline-primary' : 'btn-light'}`} onClick={() => setView('list')}>
                                 Directory
                             </button>
-                            <button className={`btn me-2 ${view === 'add' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => setView('add')}>
+                            <button className={`btn ${view === 'add' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => setView('add')}> 
                                 + Add Student
                             </button>
-                            <button className={`btn ${view === 'upload' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setView('upload')}>
+                            <button className={`btn ${view === 'upload' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setView('upload')}> 
                                 Bulk Upload
                             </button>
                         </div>
@@ -292,10 +287,7 @@ const FacultyStudentList = () => {
                         </div>
                         </>
                     )}
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

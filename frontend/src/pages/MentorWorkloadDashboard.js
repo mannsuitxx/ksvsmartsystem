@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Doughnut } from 'react-chartjs-2';
 
 const MentorWorkloadDashboard = () => {
@@ -40,13 +39,8 @@ const MentorWorkloadDashboard = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="mentor" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Mentor Workload" />
-                <div className="container-fluid p-4">
-
-                    {loading ? <p>Loading Workload...</p> : (
+        <Layout title="Mentor Workload">
+                    {loading ? <p className="text-center p-5">Loading Workload...</p> : (
                         <>
                             <div className="row g-4 mb-4">
                                 <div className="col-md-4">
@@ -111,7 +105,7 @@ const MentorWorkloadDashboard = () => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="btn btn-sm btn-primary">
+                                                                    <button className="btn btn-sm btn-outline-primary">
                                                                         View Profile
                                                                     </button>
                                                                 </td>
@@ -131,7 +125,7 @@ const MentorWorkloadDashboard = () => {
                                         </div>
                                         <div className="card-body d-flex align-items-center justify-content-center">
                                             <div style={{ width: '250px', height: '250px' }}>
-                                                <Doughnut data={getRiskDistribution()} options={{maintainAspectRatio: false}} />
+                                                <Doughnut data={getRiskDistribution()} options={{maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }}} />
                                             </div>
                                         </div>
                                     </div>
@@ -139,10 +133,7 @@ const MentorWorkloadDashboard = () => {
                             </div>
                         </>
                     )}
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Bar } from 'react-chartjs-2';
 
 const AssessmentDifficultyAnalyzer = () => {
@@ -24,11 +23,7 @@ const AssessmentDifficultyAnalyzer = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="faculty" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Assessment Difficulty Analyzer" />
-                <div className="container-fluid p-4">
+        <Layout title="Assessment Difficulty Analyzer">
 
                     <div className="row mb-4">
                         <div className="col-12">
@@ -113,9 +108,7 @@ const AssessmentDifficultyAnalyzer = () => {
                         ))}
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

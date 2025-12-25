@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const HODDashboard = () => {
     const [data, setData] = useState(null);
@@ -44,7 +43,7 @@ const HODDashboard = () => {
         document.body.removeChild(link);
     };
 
-    if (!data) return <div className="p-5">Loading Analytics...</div>;
+    if (!data) return <div className="p-5 text-center text-muted">Loading Analytics...</div>;
 
     const chartData = {
         labels: data.subjectPerformance.map(s => s.subject),
@@ -63,11 +62,7 @@ const HODDashboard = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-            <Sidebar role="hod" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Department Analytics (HOD)" />
-                <div className="container-fluid p-4">
+        <Layout title="Department Analytics (HOD)">
                     
                     {/* Header with Export */}
                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -153,9 +148,7 @@ const HODDashboard = () => {
                          </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

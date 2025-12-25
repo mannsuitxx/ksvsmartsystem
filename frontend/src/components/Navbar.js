@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ksvLogo from '../assets/ksv.png';
 import ldrpLogo from '../assets/ldrp.png';
 
-const Navbar = ({ title }) => {
+const Navbar = ({ title, onToggleSidebar }) => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -17,6 +17,9 @@ const Navbar = ({ title }) => {
     <nav className="navbar navbar-expand-lg navbar-dark px-4" style={{ backgroundColor: '#003366' }}>
       <div className="container-fluid">
         <div className="d-flex align-items-center">
+            <button className="btn btn-link text-white d-md-none me-2 p-0" onClick={onToggleSidebar}>
+                <span className="fs-1">&#8801;</span>
+            </button>
             <img src={ksvLogo} alt="KSV" style={{height: '40px'}} className="me-2 bg-white rounded-circle p-1" />
             <img src={ldrpLogo} alt="LDRP" style={{height: '40px'}} className="me-3 bg-white rounded-circle p-1" />
             <span className="navbar-brand fw-bold">{title || 'KSV Smart System'}</span>

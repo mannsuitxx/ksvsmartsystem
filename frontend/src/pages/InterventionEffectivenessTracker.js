@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import moment from 'moment';
 
 const InterventionEffectivenessTracker = () => {
@@ -24,13 +23,8 @@ const InterventionEffectivenessTracker = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="mentor" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Intervention Impact" />
-                <div className="container-fluid p-4">
-
-                    {loading ? <p>Calculating Impact...</p> : (
+        <Layout title="Intervention Impact">
+                    {loading ? <p className="text-center p-5">Calculating Impact...</p> : (
                         <>
                             <div className="row mb-4">
                                 <div className="col-12">
@@ -94,10 +88,7 @@ const InterventionEffectivenessTracker = () => {
                             </div>
                         </>
                     )}
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

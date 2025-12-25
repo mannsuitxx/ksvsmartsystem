@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Line } from 'react-chartjs-2';
 
 const SemesterComparison = () => {
@@ -23,7 +22,6 @@ const SemesterComparison = () => {
         fetchAnalytics();
     }, []);
 
-    // Prepare Chart Data
     const chartData = {
         labels: data.map(d => `Sem ${d._id}`),
         datasets: [
@@ -39,12 +37,7 @@ const SemesterComparison = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="hod" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Semester Comparison" />
-                <div className="container-fluid p-4">
-
+        <Layout title="Semester Comparison">
                     <div className="row g-4">
                         <div className="col-lg-8">
                             <div className="card shadow border-0 h-100">
@@ -53,7 +46,7 @@ const SemesterComparison = () => {
                                 </div>
                                 <div className="card-body">
                                     <div style={{height: '300px'}}>
-                                        {loading ? <p>Loading...</p> : <Line data={chartData} options={{maintainAspectRatio: false}} />}
+                                        {loading ? <p className="text-center p-5">Loading...</p> : <Line data={chartData} options={{maintainAspectRatio: false}} />}
                                     </div>
                                 </div>
                             </div>
@@ -76,10 +69,7 @@ const SemesterComparison = () => {
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

@@ -1,16 +1,17 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ role }) => {
+const Sidebar = ({ role, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path ? 'active bg-primary text-white' : 'text-dark';
 
   return (
-    <div className="bg-white border-end h-100 d-flex flex-column p-3" style={{ minWidth: '250px', minHeight: '100vh' }}>
-      <div className="mb-4 text-center">
-        <h5 className="text-primary fw-bold">KSV System</h5>
+    <div className="bg-white border-end h-100 d-flex flex-column p-3" style={{ minHeight: '100vh' }}>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h5 className="text-primary fw-bold mb-0 mx-auto">KSV System</h5>
+        <button type="button" className="btn-close d-md-none" aria-label="Close" onClick={onClose}></button>
       </div>
       
       {/* FACULTY MENU (Standard) */}

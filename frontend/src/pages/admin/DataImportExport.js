@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 
 const DataImportExport = () => {
     const [file, setFile] = useState(null);
@@ -23,12 +22,8 @@ const DataImportExport = () => {
                 'Content-Type': 'multipart/form-data'
             }};
             
-            // Endpoint logic: Reuse existing student upload or create new generic one.
-            // Using existing student upload for now.
             let url = `${process.env.REACT_APP_API_URL}/api/students/upload`;
             if (type === 'faculty') {
-                // Placeholder for faculty upload, currently not implemented in backend, simulating
-                // In real implementation: url = `${process.env.REACT_APP_API_URL}/api/admin/faculty/upload`;
                  setMsg({ text: 'Faculty Bulk Upload simulated (Backend pending)', type: 'warning' });
                  return;
             }
@@ -46,11 +41,7 @@ const DataImportExport = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Data Import / Export Center" />
-                <div className="container-fluid p-4">
+        <Layout title="Data Import / Export Center">
 
                     <div className="row g-4">
                         {/* IMPORT SECTION */}
@@ -143,9 +134,7 @@ const DataImportExport = () => {
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

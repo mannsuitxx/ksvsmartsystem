@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 
 const DepartmentSetup = () => {
     const [departments, setDepartments] = useState([]);
@@ -45,11 +44,7 @@ const DepartmentSetup = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Academic Structure" />
-                <div className="container-fluid p-4">
+        <Layout title="Academic Structure">
 
                     <ul className="nav nav-pills mb-4">
                         <li className="nav-item">
@@ -61,7 +56,7 @@ const DepartmentSetup = () => {
                     </ul>
 
                     {activeTab === 'dept' && (
-                        <div className="row">
+                        <div className="row g-4">
                             <div className="col-md-4">
                                 <div className="card shadow border-0">
                                     <div className="card-header bg-white fw-bold">Add Department</div>
@@ -99,7 +94,7 @@ const DepartmentSetup = () => {
                     )}
 
                     {activeTab === 'sub' && (
-                        <div className="row">
+                        <div className="row g-4">
                              <div className="col-md-4">
                                 <div className="card shadow border-0">
                                     <div className="card-header bg-white fw-bold">Add Subject</div>
@@ -161,9 +156,7 @@ const DepartmentSetup = () => {
                         </div>
                     )}
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

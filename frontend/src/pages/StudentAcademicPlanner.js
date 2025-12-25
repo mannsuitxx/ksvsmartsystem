@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -11,9 +10,7 @@ const StudentAcademicPlanner = () => {
     const [events, setEvents] = useState([]);
     const [toDoList, setToDoList] = useState([]);
 
-    // Simulate fetching Academic Calendar & generating deadlines
     useEffect(() => {
-        // In a real app, fetch from /api/academic-calendar
         const mockCalendar = [
             {
                 title: 'Mid-Sem Exam: Advanced Java',
@@ -47,7 +44,6 @@ const StudentAcademicPlanner = () => {
 
         setEvents(mockCalendar);
 
-        // Generate To-Do List based on upcoming events
         const tasks = mockCalendar.map(event => ({
             id: Math.random(),
             task: `Prepare for ${event.title}`,
@@ -78,12 +74,7 @@ const StudentAcademicPlanner = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Academic Planner" />
-                <div className="container-fluid p-4">
-                    
+        <Layout title="Academic Planner">
                     <div className="row g-4">
                         {/* Calendar Section */}
                         <div className="col-lg-8">
@@ -93,14 +84,15 @@ const StudentAcademicPlanner = () => {
                                     <span className="badge bg-info text-dark">Fall 2025</span>
                                 </div>
                                 <div className="card-body">
-                                    <Calendar
-                                        localizer={localizer}
-                                        events={events}
-                                        startAccessor="start"
-                                        endAccessor="end"
-                                        style={{ height: 500 }}
-                                        eventPropGetter={eventStyleGetter}
-                                    />
+                                    <div style={{ height: '500px' }}>
+                                        <Calendar
+                                            localizer={localizer}
+                                            events={events}
+                                            startAccessor="start"
+                                            endAccessor="end"
+                                            eventPropGetter={eventStyleGetter}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,10 +140,7 @@ const StudentAcademicPlanner = () => {
 
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

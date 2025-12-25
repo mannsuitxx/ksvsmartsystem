@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 import moment from 'moment';
 
 const AcademicCalendarManager = () => {
@@ -31,11 +30,7 @@ const AcademicCalendarManager = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Academic Calendar" />
-                <div className="container-fluid p-4">
+        <Layout title="Academic Calendar">
 
                     <div className="row g-4">
                         <div className="col-lg-4">
@@ -121,9 +116,7 @@ const AcademicCalendarManager = () => {
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

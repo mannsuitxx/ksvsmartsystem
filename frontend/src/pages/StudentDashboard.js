@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -93,11 +92,7 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-      <Sidebar role="student" />
-      <div className="flex-grow-1 d-flex flex-column">
-        <Navbar title="Student Dashboard" />
-        <div className="container-fluid p-4">
+    <Layout title="Student Dashboard">
             
             {/* Risk Banner */}
             <div className={`alert ${data.metrics.risk.level === 'High Risk' ? 'alert-danger shadow-sm' : data.metrics.risk.level === 'Moderate Risk' ? 'alert-warning shadow-sm' : 'alert-success shadow-sm'} mb-4 border-0 d-flex align-items-center`}>
@@ -229,9 +224,7 @@ const StudentDashboard = () => {
                 </div>
             </div>
 
-        </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 export default StudentDashboard;

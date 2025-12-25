@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const StudentMyProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -71,11 +70,7 @@ const StudentMyProfile = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Edit Profile" />
-                <div className="container-fluid p-4">
+        <Layout title="Edit Profile">
                     <div className="card shadow border-0" style={{maxWidth: '700px', margin: '0 auto'}}>
                         <div className="card-body p-4">
                             <h4 className="fw-bold mb-4 text-center">My Academic Profile</h4>
@@ -149,9 +144,7 @@ const StudentMyProfile = () => {
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

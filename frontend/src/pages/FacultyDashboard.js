@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
@@ -140,11 +139,8 @@ const FacultyDashboard = () => {
   };
 
   return (
-    <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-      <Sidebar role={user?.role || 'faculty'} />
-      <div className="flex-grow-1 d-flex flex-column">
-        <Navbar title={user?.role === 'mentor' ? "Faculty & Mentor Dashboard" : "Faculty Dashboard"} />
-        
+    <Layout title={user?.role === 'mentor' ? "Faculty & Mentor Dashboard" : "Faculty Dashboard"}>
+
         <div className="container-fluid p-4">
           <h4 className="fw-bold mb-4">Academic Management</h4>
 
@@ -417,8 +413,8 @@ const FacultyDashboard = () => {
              </div>
           </div>
         </div>
-      </div>
-    </div>
+
+    </Layout>
   );
 };
 

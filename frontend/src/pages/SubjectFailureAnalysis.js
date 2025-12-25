@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const SubjectFailureAnalysis = () => {
     const [data, setData] = useState([]);
@@ -23,11 +22,7 @@ const SubjectFailureAnalysis = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="hod" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Subject Failure RCA" />
-                <div className="container-fluid p-4">
+        <Layout title="Subject Failure RCA">
 
                     <div className="alert alert-danger shadow-sm border-0 mb-4">
                         <i className="bi bi-exclamation-triangle-fill me-2"></i>
@@ -35,7 +30,7 @@ const SubjectFailureAnalysis = () => {
                     </div>
 
                     <div className="row g-4">
-                        {loading ? <p>Analyzing Failure Patterns...</p> : data.map((sub, idx) => (
+                        {loading ? <p className="text-center p-5">Analyzing Failure Patterns...</p> : data.map((sub, idx) => (
                             <div className="col-lg-6" key={idx}>
                                 <div className="card shadow border-0 h-100">
                                     <div className="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -68,12 +63,10 @@ const SubjectFailureAnalysis = () => {
                                 </div>
                             </div>
                         ))}
-                         {data.length === 0 && !loading && <div className="p-4">No marks data found to analyze.</div>}
+                         {data.length === 0 && !loading && <div className="p-4 text-center">No marks data found to analyze.</div>}
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

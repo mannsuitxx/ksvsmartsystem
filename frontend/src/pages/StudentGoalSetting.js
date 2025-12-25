@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { Doughnut } from 'react-chartjs-2';
 
 const StudentGoalSetting = () => {
@@ -15,22 +14,7 @@ const StudentGoalSetting = () => {
     }, []);
 
     const calculateRequirements = () => {
-        // Simple formula simulation: (Current * CompletedSemesters + Required * RemainingSemesters) / Total = Target
-        // Assume 8 semesters total, currently in Sem 5 (so 4 completed)
-        // (7.2 * 4 + X * 4) / 8 = Target
-        // 28.8 + 4X = 8 * Target
-        // 4X = 8*Target - 28.8
-        // X = (8*Target - 28.8) / 4
-        
-        // Let's make it generic for "Next Semester Target"
-        // Current Average = 7.2. To reach Target 8.0 overall, what do I need next sem?
-        // It's harder to shift global CGPA.
-        // Let's simplify: "To average X for this semester"
-        
-        // Let's use SPI gap.
-        // Target SPI vs Current Average Internal Marks
-        
-        // Mock Calculation
+        // Mock Calculation logic
         const gap = targetCGPA - currentCGPA;
         let effort = 0;
         if (gap <= 0) effort = 0; // Already there
@@ -45,19 +29,14 @@ const StudentGoalSetting = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Goal Setting" />
-                <div className="container-fluid p-4">
-
+        <Layout title="Goal Setting">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">
                             <div className="card shadow border-0">
                                 <div className="card-body p-5">
                                     <h2 className="text-center fw-bold text-primary mb-4">Where do you want to be?</h2>
                                     
-                                    <div className="mb-5 px-5">
+                                    <div className="mb-5 px-md-5">
                                         <label className="form-label fw-bold">Set Your Target CGPA / SPI</label>
                                         <input 
                                             type="range" 
@@ -96,7 +75,7 @@ const StudentGoalSetting = () => {
                                                                 borderWidth: 0
                                                             }]
                                                         }}
-                                                        options={{cutout: '70%'}}
+                                                        options={{cutout: '70%', plugins: { legend: { display: false } }}}
                                                     />
                                                 </div>
                                             </div>
@@ -125,10 +104,7 @@ const StudentGoalSetting = () => {
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

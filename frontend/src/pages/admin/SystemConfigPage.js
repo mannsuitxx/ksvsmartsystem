@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 
 const SystemConfigPage = () => {
     const [configs, setConfigs] = useState([]);
@@ -41,15 +40,12 @@ const SystemConfigPage = () => {
     };
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="System Configuration" />
-                <div className="container-fluid p-4">
+        <Layout title="System Configuration">
 
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="card shadow border-0 mb-4">
+
                                 <div className="card-header bg-dark text-white fw-bold">Academic Policies</div>
                                 <div className="card-body">
                                     
@@ -118,10 +114,7 @@ const SystemConfigPage = () => {
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
-
 export default SystemConfigPage;

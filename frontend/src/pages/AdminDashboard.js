@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -78,12 +77,10 @@ const AdminDashboard = () => {
         }
     };
 
+    if (loading) return <div className="p-5 text-center text-muted">Loading System Admin...</div>;
+
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-            <Sidebar role="admin" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="System Administration" />
-                <div className="container-fluid p-4">
+        <Layout title="System Administration">
                     
                     {/* Navigation Tabs */}
                     <ul className="nav nav-tabs mb-4">
@@ -263,9 +260,7 @@ const AdminDashboard = () => {
                         </>
                     )}
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

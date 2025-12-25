@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const StudentDirectory = () => {
   const [students, setStudents] = useState([]);
@@ -21,7 +20,6 @@ const StudentDirectory = () => {
   };
 
   useEffect(() => {
-    // Debounce search
     const timer = setTimeout(() => {
         fetchStudents();
     }, 500);
@@ -29,11 +27,7 @@ const StudentDirectory = () => {
   }, [filters]);
 
   return (
-    <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-      <Sidebar role="faculty" />
-      <div className="flex-grow-1 d-flex flex-column">
-        <Navbar title="Student Directory" />
-        <div className="container-fluid p-4">
+    <Layout title="Student Directory">
             
             {/* Filters */}
             <div className="card shadow border-0 mb-4 p-3">
@@ -109,10 +103,7 @@ const StudentDirectory = () => {
                     </div>
                 </div>
             </div>
-
-        </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 

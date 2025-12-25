@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import RiskExplanation from '../components/RiskExplanation';
 import AttendanceDrillDown from '../components/AttendanceDrillDown';
 import MentorInterventionPanel from '../components/MentorInterventionPanel';
@@ -18,30 +17,12 @@ const StudentProfileView = () => {
     const fetchStudent = async () => {
       try {
         const url = `${process.env.REACT_APP_API_URL}/api/students/${id}`;
-        console.log(`[FRONTEND] Requesting: ${url}`);
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
         const res = await axios.get(url, config);
-        console.log("Student Profile Data:", res.data);
         setStudent(res.data);
       } catch (e) { 
         console.error("Error fetching student profile:", e);
-        if (e.response) {
-            console.error("Response Data Type:", typeof e.response.data);
-            console.error("Response Data:", e.response.data);
-            console.error("Response Status:", e.response.status);
-            
-            if (e.response.status === 404) {
-                 setError('Student not found (404). Please check the ID.');
-            } else {
-                 setError(`Server Error: ${e.response.data?.message || e.response.statusText}`);
-            }
-        } else if (e.request) {
-            console.error("No response received:", e.request);
-            setError('Network Error: Server not reachable.');
-        } else {
-            console.error("Request setup error:", e.message);
-            setError(`Request Error: ${e.message}`);
-        }
+        setError(e.response?.data?.message || 'Failed to load profile');
       } finally {
         setLoading(false);
       }
@@ -54,11 +35,7 @@ const StudentProfileView = () => {
   if (!student) return <div className="p-5 text-center">Student not found.</div>;
 
   return (
-    <div className="d-flex" style={{ backgroundColor: '#f4f6f9', minHeight: '100vh' }}>
-      <Sidebar role="faculty" />
-      <div className="flex-grow-1 d-flex flex-column">
-        <Navbar title={`Profile: ${student.firstName} ${student.lastName}`} />
-        <div className="container-fluid p-4">
+    <Layout title={`Profile: ${student.firstName} ${student.lastName}`}>
             
             <button className="btn btn-sm btn-outline-secondary mb-3" onClick={() => navigate(-1)}>&larr; Back to Directory</button>
 
@@ -107,10 +84,7 @@ const StudentProfileView = () => {
                     <MentorInterventionPanel studentId={student._id} />
                 </div>
             </div>
-
-        </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 const BacklogRiskAnalyzer = () => {
     const [riskReport, setRiskReport] = useState([]);
@@ -52,11 +51,7 @@ const BacklogRiskAnalyzer = () => {
     }, []);
 
     return (
-        <div className="d-flex" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-            <Sidebar role="student" />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Navbar title="Backlog Risk Analyzer" />
-                <div className="container-fluid p-4">
+        <Layout title="Backlog Risk Analyzer">
 
                      <div className="row mb-4">
                         <div className="col-12">
@@ -76,7 +71,7 @@ const BacklogRiskAnalyzer = () => {
                     </div>
 
                     <div className="row g-4">
-                        {loading ? <div className="p-5">Loading Analysis...</div> : riskReport.map((item, idx) => (
+                        {loading ? <div className="p-5 text-center text-muted">Loading Analysis...</div> : riskReport.map((item, idx) => (
                             <div className="col-lg-6" key={idx}>
                                 <div className="card shadow border-0 h-100">
                                     <div className="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -125,9 +120,7 @@ const BacklogRiskAnalyzer = () => {
                         ))}
                     </div>
 
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 
