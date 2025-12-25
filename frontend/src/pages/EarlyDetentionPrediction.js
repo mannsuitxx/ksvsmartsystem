@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const EarlyDetentionPrediction = () => {
     const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ const EarlyDetentionPrediction = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/hod/deep-analytics`, config);
+                const res = await axios.get(`${API_URL}/api/hod/deep-analytics`, config);
                 setData(res.data.detention);
                 setLoading(false);
             } catch (err) {
@@ -53,7 +54,7 @@ const EarlyDetentionPrediction = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {loading ? <tr><td colSpan="5" className="text-center p-4">Running simulations...</td></tr> : data.map((s, idx) => (
+                                        {loading ? <tr><td colSpan="5" className="p-4 text-center">Running simulations...</td></tr> : data.map((s, idx) => (
                                             <tr key={idx}>
                                                 <td className="ps-4">
                                                     <div className="fw-bold">{s.name}</div>
@@ -75,7 +76,7 @@ const EarlyDetentionPrediction = () => {
                                                 </td>
                                             </tr>
                                         ))}
-                                        {data.length === 0 && !loading && <tr><td colSpan="5" className="text-center p-4 text-success">No students projected for detention!</td></tr>}
+                                        {data.length === 0 && !loading && <tr><td colSpan="5" className="p-4 text-center text-success">No students projected for detention!</td></tr>}
                                     </tbody>
                                 </table>
                             </div>

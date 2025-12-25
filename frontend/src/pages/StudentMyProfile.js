@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const StudentMyProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -14,7 +15,7 @@ const StudentMyProfile = () => {
         try {
             const token = localStorage.getItem('token');
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/dashboard`, config);
+            const res = await axios.get(`${API_URL}/api/student/dashboard`, config);
             const p = res.data.profile;
             setProfile(p);
             
@@ -53,10 +54,10 @@ const StudentMyProfile = () => {
             if (file) {
                 const fd = new FormData();
                 fd.append('image', file);
-                await axios.post(`${process.env.REACT_APP_API_URL}/api/student/profile-picture`, fd, config);
+                await axios.post(`${API_URL}/api/student/profile-picture`, fd, config);
             }
 
-            await axios.put(`${process.env.REACT_APP_API_URL}/api/student/profile`, editData, config);
+            await axios.put(`${API_URL}/api/student/profile`, editData, config);
             
             setMsg('Profile updated successfully!');
             setFile(null);
@@ -83,7 +84,7 @@ const StudentMyProfile = () => {
                                                 <img src={previewUrl} alt="Preview" className="w-100 h-100" style={{objectFit: 'cover'}} />
                                             ) : profile?.profilePicture ? (
                                                 <img 
-                                                    src={`${process.env.REACT_APP_API_URL}/${profile.profilePicture}`} 
+                                                    src={`${API_URL}/${profile.profilePicture}`} 
                                                     alt="Profile" 
                                                     className="w-100 h-100" 
                                                     style={{objectFit: 'cover'}}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,8 +26,8 @@ const AdminDashboard = () => {
     const fetchData = async () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const statsRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/stats`, config);
-            const usersRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/users`, config);
+            const statsRes = await axios.get(`${API_URL}/api/admin/stats`, config);
+            const usersRes = await axios.get(`${API_URL}/api/admin/users`, config);
             setStats(statsRes.data);
             setUsers(usersRes.data);
             setLoading(false);
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
         setMsg({ text: 'Creating...', type: 'info' });
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/users`, newUser, config);
+            await axios.post(`${API_URL}/api/admin/users`, newUser, config);
             setMsg({ text: 'User Created Successfully!', type: 'success' });
             setNewUser({ email: '', password: '', role: 'faculty' });
             fetchData(); // Refresh list
@@ -60,7 +61,7 @@ const AdminDashboard = () => {
         if(window.confirm(`Are you sure you want to delete ${email}?`)) {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/users/${id}`, config);
+                await axios.delete(`${API_URL}/api/admin/users/${id}`, config);
                 fetchData(); // Refresh
             } catch (err) { alert('Delete Failed'); }
         }
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
     const handleRoleUpdate = async (id, newRole) => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/users/${id}/role`, { role: newRole }, config);
+            await axios.put(`${API_URL}/api/admin/users/${id}/role`, { role: newRole }, config);
             // Optimistic update or refresh
             setUsers(users.map(u => u._id === id ? { ...u, role: newRole } : u));
         } catch (err) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import { Doughnut } from 'react-chartjs-2';
+import { API_URL } from '../config';
 
 const MentorWorkloadDashboard = () => {
     const [data, setData] = useState(null);
@@ -11,7 +12,7 @@ const MentorWorkloadDashboard = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/mentor/analytics`, config);
+                const res = await axios.get(`${API_URL}/api/mentor/analytics`, config);
                 setData(res.data.workload);
                 setLoading(false);
             } catch (err) {

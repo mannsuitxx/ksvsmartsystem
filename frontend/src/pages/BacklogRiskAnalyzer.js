@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const BacklogRiskAnalyzer = () => {
     const [riskReport, setRiskReport] = useState([]);
@@ -10,7 +11,7 @@ const BacklogRiskAnalyzer = () => {
         const fetchData = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/dashboard`, config);
+                const res = await axios.get(`${API_URL}/api/student/dashboard`, config);
                 
                 // Group marks by subject
                 const marksBySubject = {};
@@ -25,9 +26,6 @@ const BacklogRiskAnalyzer = () => {
                     const totalMax = exams.reduce((sum, e) => sum + e.maxMarks, 0);
                     const percentage = (totalObtained / totalMax) * 100;
                     
-                    // Simple logic: If < 40%, it's fail territory.
-                    // Assume final internal passing requires 40% aggregate.
-                    // Calculate deficit
                     const requiredForSafe = (0.40 * totalMax) - totalObtained;
                     
                     return {
@@ -36,7 +34,7 @@ const BacklogRiskAnalyzer = () => {
                         examsCount: exams.length,
                         riskLevel: percentage < 35 ? 'Critical' : percentage < 45 ? 'Moderate' : 'Low',
                         message: percentage < 40 ? `You are failing by ${(requiredForSafe).toFixed(1)} marks.` : 'You are currently passing.',
-                        trend: exams.map(e => (e.marksObtained / e.maxMarks) * 100) // Array of percentages
+                        trend: exams.map(e => (e.marksObtained / e.maxMarks) * 100)
                     };
                 });
 

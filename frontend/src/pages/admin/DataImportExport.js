@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
+import { API_URL } from '../../config';
 
 const DataImportExport = () => {
     const [file, setFile] = useState(null);
@@ -22,7 +23,7 @@ const DataImportExport = () => {
                 'Content-Type': 'multipart/form-data'
             }};
             
-            let url = `${process.env.REACT_APP_API_URL}/api/students/upload`;
+            let url = `${API_URL}/api/students/upload`;
             if (type === 'faculty') {
                  setMsg({ text: 'Faculty Bulk Upload simulated (Backend pending)', type: 'warning' });
                  return;
@@ -36,7 +37,6 @@ const DataImportExport = () => {
     };
 
     const handleDownloadTemplate = (templateType) => {
-        // In real app, this would trigger a file download from backend or public assets
         alert(`Downloading ${templateType} CSV Template...`);
     };
 
@@ -133,7 +133,6 @@ const DataImportExport = () => {
                             </div>
                         </div>
                     </div>
-
         </Layout>
     );
 };

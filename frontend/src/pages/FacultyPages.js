@@ -3,6 +3,7 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
+import { API_URL } from '../config';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
@@ -19,8 +20,8 @@ export const FacultyDashboardHome = () => {
         const fetchStats = async () => {
              const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
              try {
-                const studentsRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
-                const historyRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/history`, config);
+                const studentsRes = await axios.get(`${API_URL}/api/faculty/students`, config);
+                const historyRes = await axios.get(`${API_URL}/api/faculty/history`, config);
                 
                 let safe = 0, mod = 0, high = 0;
                 studentsRes.data.forEach(s => {
@@ -127,7 +128,7 @@ export const FacultyHistory = () => {
     useEffect(() => {
         const fetchHistory = async () => {
              const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-             const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/history`, config);
+             const res = await axios.get(`${API_URL}/api/faculty/history`, config);
              setHistory(res.data);
         };
         fetchHistory();
@@ -168,7 +169,7 @@ export const FacultyAttendance = () => {
     useEffect(() => {
         const fetchS = async () => {
              const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-             const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
+             const res = await axios.get(`${API_URL}/api/faculty/students`, config);
              setStudents(res.data);
              const init = {}; res.data.forEach(s => init[s._id] = 'P');
              setAttendanceData(init);
@@ -185,11 +186,11 @@ export const FacultyAttendance = () => {
                 fd.append('file', csvFile);
                 fd.append('subjectName', subject);
                 fd.append('date', date);
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/upload-csv`, fd, {headers: {...config.headers, 'Content-Type': 'multipart/form-data'}});
+                const res = await axios.post(`${API_URL}/api/faculty/upload-csv`, fd, {headers: {...config.headers, 'Content-Type': 'multipart/form-data'}});
                 setMsg(res.data.message);
             } else {
                 const records = students.map(s => ({ studentId: s._id, status: attendanceData[s._id] }));
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/attendance`, { subjectName: subject, date, records }, config);
+                const res = await axios.post(`${API_URL}/api/faculty/attendance`, { subjectName: subject, date, records }, config);
                 setMsg(res.data.message);
             }
         } catch (err) { setMsg(err.response?.data?.message || 'Error'); }
@@ -242,7 +243,7 @@ export const FacultyMarks = () => {
     useEffect(() => {
         const fetchS = async () => {
              const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-             const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
+             const res = await axios.get(`${API_URL}/api/faculty/students`, config);
              setStudents(res.data);
              const init = {}; res.data.forEach(s => init[s._id] = '');
              setMarks(init);
@@ -260,11 +261,11 @@ export const FacultyMarks = () => {
                 fd.append('subjectName', subject);
                 fd.append('maxMarks', max);
                 fd.append('examType', 'Mid-Sem');
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/marks/csv`, fd, {headers: {...config.headers, 'Content-Type': 'multipart/form-data'}});
+                const res = await axios.post(`${API_URL}/api/faculty/marks/csv`, fd, {headers: {...config.headers, 'Content-Type': 'multipart/form-data'}});
                 setMsg(res.data.message);
             } else {
                 const records = students.filter(s => marks[s._id] !== '').map(s => ({ studentId: s._id, marksObtained: Number(marks[s._id]) }));
-                await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/marks`, { subjectName: subject, examType: 'Mid-Sem', maxMarks: max, records }, config);
+                await axios.post(`${API_URL}/api/faculty/marks`, { subjectName: subject, examType: 'Mid-Sem', maxMarks: max, records }, config);
                 setMsg('Marks Uploaded Successfully');
             }
         } catch (e) { setMsg(e.response?.data?.message || 'Error'); }

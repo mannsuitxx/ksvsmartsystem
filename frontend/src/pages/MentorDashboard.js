@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,7 +15,7 @@ const MentorDashboard = () => {
         const fetchMentees = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/mentor/mentees`, config);
+                const res = await axios.get(`${API_URL}/api/mentor/mentees`, config);
                 setMentees(res.data);
             } catch (err) { console.error(err); }
             setLoading(false);
@@ -46,7 +47,7 @@ const MentorDashboard = () => {
         if(!note) return;
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/mentor/intervention`, {
+            await axios.post(`${API_URL}/api/mentor/intervention`, {
                 studentId, type: 'Counseling', notes: note
             }, config);
             alert('Intervention Logged');

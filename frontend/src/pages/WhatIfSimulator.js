@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const WhatIfSimulator = () => {
   const [inputs, setInputs] = useState({
@@ -18,7 +19,7 @@ const WhatIfSimulator = () => {
     setLoading(true);
     try {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/student/simulate`, inputs, config);
+        const res = await axios.post(`${API_URL}/api/student/simulate`, inputs, config);
         
         console.log("Simulation Result:", res.data);
         setResult(res.data);

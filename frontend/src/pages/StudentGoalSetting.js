@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../components/Layout';
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 import { Doughnut } from 'react-chartjs-2';
+import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const StudentGoalSetting = () => {
     const [targetCGPA, setTargetCGPA] = useState(8.5);

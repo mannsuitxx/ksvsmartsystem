@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const LowEngagementDetector = () => {
     const [students, setStudents] = useState([]);
@@ -10,7 +11,7 @@ const LowEngagementDetector = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/analytics`, config);
+                const res = await axios.get(`${API_URL}/api/faculty/analytics`, config);
                 setStudents(res.data.lowEngagement);
                 setLoading(false);
             } catch (err) {
@@ -24,7 +25,7 @@ const LowEngagementDetector = () => {
     const notifyStudent = async (id) => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/notify`, {
+            await axios.post(`${API_URL}/api/faculty/notify`, {
                 studentId: id,
                 message: "Faculty Reminder: Your attendance/engagement is low. Please report to the faculty cabin."
             }, config);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import { Pie } from 'react-chartjs-2';
+import { API_URL } from '../config';
 
 const ClassHealthReport = () => {
     const [data, setData] = useState(null);
@@ -11,7 +12,7 @@ const ClassHealthReport = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/analytics`, config);
+                const res = await axios.get(`${API_URL}/api/faculty/analytics`, config);
                 setData(res.data);
                 setLoading(false);
             } catch (err) {

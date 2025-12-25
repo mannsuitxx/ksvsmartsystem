@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import moment from 'moment';
+import { API_URL } from '../config';
 
 const MentorInteractionHistory = () => {
     const [interventions, setInterventions] = useState([]);
@@ -11,7 +12,7 @@ const MentorInteractionHistory = () => {
         const fetchNotifications = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/notifications`, config);
+                const res = await axios.get(`${API_URL}/api/student/notifications`, config);
                 setInterventions(res.data);
                 setLoading(false);
             } catch (err) {
@@ -25,7 +26,7 @@ const MentorInteractionHistory = () => {
     const markAsRead = async (id) => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.put(`${process.env.REACT_APP_API_URL}/api/student/notifications/${id}/read`, {}, config);
+            await axios.put(`${API_URL}/api/student/notifications/${id}/read`, {}, config);
             setInterventions(prev => prev.map(i => i._id === id ? { ...i, isRead: true } : i));
         } catch (err) {
             console.error(err);

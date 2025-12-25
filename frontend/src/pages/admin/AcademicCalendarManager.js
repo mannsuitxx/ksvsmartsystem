@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import moment from 'moment';
+import { API_URL } from '../../config';
 
 const AcademicCalendarManager = () => {
     const [events, setEvents] = useState([]);
@@ -14,7 +15,7 @@ const AcademicCalendarManager = () => {
     const fetchData = async () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/calendar`, config);
+            const res = await axios.get(`${API_URL}/api/admin/calendar`, config);
             setEvents(res.data);
         } catch (err) { console.error(err); }
     };
@@ -23,7 +24,7 @@ const AcademicCalendarManager = () => {
         e.preventDefault();
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/calendar`, newEvent, config);
+            await axios.post(`${API_URL}/api/admin/calendar`, newEvent, config);
             fetchData();
             setNewEvent({ title: '', type: 'Event', startDate: '', endDate: '', description: '' });
         } catch (err) { alert('Failed to add event'); }

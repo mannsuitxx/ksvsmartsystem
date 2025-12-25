@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const StudentDirectory = () => {
   const [students, setStudents] = useState([]);
@@ -13,7 +14,7 @@ const StudentDirectory = () => {
     setLoading(true);
     try {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, params: filters };
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/students`, config);
+      const res = await axios.get(`${API_URL}/api/students`, config);
       setStudents(res.data);
     } catch (e) { console.error(e); }
     setLoading(false);

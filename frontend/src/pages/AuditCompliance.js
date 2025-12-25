@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import moment from 'moment';
+import { API_URL } from '../config';
 
 const AuditCompliance = () => {
     const [logs, setLogs] = useState([]);
@@ -11,7 +12,7 @@ const AuditCompliance = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/hod/deep-analytics`, config);
+                const res = await axios.get(`${API_URL}/api/hod/deep-analytics`, config);
                 setLogs(res.data.audit);
                 setLoading(false);
             } catch (err) {

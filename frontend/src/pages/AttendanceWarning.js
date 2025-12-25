@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const AttendanceWarning = () => {
     const [subjects, setSubjects] = useState([]);
@@ -10,7 +11,7 @@ const AttendanceWarning = () => {
         const fetchAttendance = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/dashboard`, config);
+                const res = await axios.get(`${API_URL}/api/student/dashboard`, config);
                 
                 const subjectData = res.data.metrics.attendance.subjectWise;
                 const processed = Object.keys(subjectData).map(sub => {
@@ -18,14 +19,9 @@ const AttendanceWarning = () => {
                     const present = subjectData[sub].present;
                     const percentage = total === 0 ? 0 : (present / total) * 100;
                     
-                    // Logic for Recovery
-                    // Target: 75%
-                    // Formula: (P + x) / (T + x) >= 0.75  =>  x >= 3T - 4P
                     let lecturesNeeded = Math.ceil(3 * total - 4 * present);
                     if (lecturesNeeded < 0) lecturesNeeded = 0;
 
-                    // Logic for Bunking (Safe to Skip)
-                    // (P) / (T + y) >= 0.75 => y <= (P / 0.75) - T
                     let canSkip = Math.floor((present / 0.75) - total);
                     if (canSkip < 0) canSkip = 0;
 

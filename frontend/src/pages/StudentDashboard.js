@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,7 +35,7 @@ const StudentDashboard = () => {
   const fetchData = async () => {
     try {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/dashboard`, config);
+        const res = await axios.get(`${API_URL}/api/student/dashboard`, config);
         setData(res.data);
     } catch (err) { console.error("Polling error", err); }
   };

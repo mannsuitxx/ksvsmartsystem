@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
+import { API_URL } from '../../config';
 
 const DepartmentSetup = () => {
     const [departments, setDepartments] = useState([]);
@@ -16,8 +17,8 @@ const DepartmentSetup = () => {
     const fetchData = async () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const dRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/departments`, config);
-            const sRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/subjects`, config);
+            const dRes = await axios.get(`${API_URL}/api/admin/departments`, config);
+            const sRes = await axios.get(`${API_URL}/api/admin/subjects`, config);
             setDepartments(dRes.data);
             setSubjects(sRes.data);
         } catch (err) { console.error(err); }
@@ -27,7 +28,7 @@ const DepartmentSetup = () => {
         e.preventDefault();
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/departments`, newDept, config);
+            await axios.post(`${API_URL}/api/admin/departments`, newDept, config);
             setNewDept({ name: '', code: '' });
             fetchData();
         } catch (err) { alert('Error adding department'); }
@@ -37,7 +38,7 @@ const DepartmentSetup = () => {
         e.preventDefault();
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/subjects`, newSub, config);
+            await axios.post(`${API_URL}/api/admin/subjects`, newSub, config);
             setNewSub({ ...newSub, name: '', code: '' }); // Keep dept/sem for easier entry
             fetchData();
         } catch (err) { alert('Error adding subject'); }

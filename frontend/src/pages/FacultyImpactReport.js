@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const FacultyImpactReport = () => {
     const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ const FacultyImpactReport = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/hod/deep-analytics`, config);
+                const res = await axios.get(`${API_URL}/api/hod/deep-analytics`, config);
                 setData(res.data.facultyImpact);
                 setLoading(false);
             } catch (err) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 import RiskExplanation from '../components/RiskExplanation';
 import AttendanceDrillDown from '../components/AttendanceDrillDown';
 import MentorInterventionPanel from '../components/MentorInterventionPanel';
@@ -16,7 +17,7 @@ const StudentProfileView = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_URL}/api/students/${id}`;
+        const url = `${API_URL}/api/students/${id}`;
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
         const res = await axios.get(url, config);
         setStudent(res.data);
@@ -48,7 +49,7 @@ const StudentProfileView = () => {
                                 <div style={{width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#e9ecef', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 0 5px rgba(0,0,0,0.1)'}}>
                                     {student.profilePicture ? (
                                         <img 
-                                            src={`${process.env.REACT_APP_API_URL}/${student.profilePicture}`} 
+                                            src={`${API_URL}/${student.profilePicture}`} 
                                             alt="Profile" 
                                             className="w-100 h-100" 
                                             style={{objectFit: 'cover'}}

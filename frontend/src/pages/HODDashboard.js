@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const HODDashboard = () => {
     const [data, setData] = useState(null);
@@ -10,7 +11,7 @@ const HODDashboard = () => {
         const fetchStats = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/hod/analytics`, config);
+                const res = await axios.get(`${API_URL}/api/hod/analytics`, config);
                 setData(res.data);
             } catch (err) { console.error(err); }
         };

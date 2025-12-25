@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { API_URL } from '../config';
 
 const FacultyStudentList = () => {
     const [students, setStudents] = useState([]);
@@ -39,7 +40,7 @@ const FacultyStudentList = () => {
             if (dept) params.append('department', dept);
             if (sem) params.append('semester', sem);
 
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/students?${params.toString()}`, config);
+            const res = await axios.get(`${API_URL}/api/students?${params.toString()}`, config);
             setStudents(res.data);
         } catch (err) { console.error(err); }
         setLoading(false);
@@ -72,7 +73,7 @@ const FacultyStudentList = () => {
 
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'multipart/form-data' } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/students/upload`, formData, config);
+            await axios.post(`${API_URL}/api/students/upload`, formData, config);
             setUploadMsg({ text: 'Success!', type: 'success' });
             setTimeout(() => setView('list'), 1500);
         } catch (err) {
@@ -88,7 +89,7 @@ const FacultyStudentList = () => {
 
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/students/add`, formData, config);
+            await axios.post(`${API_URL}/api/students/add`, formData, config);
             setUploadMsg({ text: 'Student Account Created! Default Pass: 123456', type: 'success' });
             setFormData({ enrollmentNumber: '', firstName: '', lastName: '', email: '', department: 'Computer Engineering', currentSemester: 1 });
             setTimeout(() => setView('list'), 2000);
@@ -103,7 +104,7 @@ const FacultyStudentList = () => {
         if (window.confirm(`Are you sure you want to delete ${name}? This will remove their login access as well.`)) {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                await axios.delete(`${process.env.REACT_APP_API_URL}/api/students/${id}`, config);
+                await axios.delete(`${API_URL}/api/students/${id}`, config);
                 setUploadMsg({ text: 'Student Deleted Successfully', type: 'success' });
                 fetchStudents(); // Refresh list
             } catch (err) {

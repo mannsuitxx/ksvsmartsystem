@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import { Bar } from 'react-chartjs-2';
+import { API_URL } from '../config';
 
 const AssessmentDifficultyAnalyzer = () => {
     const [assessments, setAssessments] = useState([]);
@@ -11,7 +12,7 @@ const AssessmentDifficultyAnalyzer = () => {
         const fetchAnalytics = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/analytics`, config);
+                const res = await axios.get(`${API_URL}/api/faculty/analytics`, config);
                 setAssessments(res.data.assessments);
                 setLoading(false);
             } catch (err) {
@@ -41,7 +42,7 @@ const AssessmentDifficultyAnalyzer = () => {
                     </div>
 
                     <div className="row g-4">
-                        {loading ? <p className="p-4">Analyzing exam data...</p> : assessments.map((exam, idx) => (
+                        {loading ? <p className="text-center p-4">Analyzing exam data...</p> : assessments.map((exam, idx) => (
                             <div className="col-lg-6" key={idx}>
                                 <div className="card shadow border-0 h-100">
                                     <div className="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -66,7 +67,6 @@ const AssessmentDifficultyAnalyzer = () => {
                                             </div>
                                         </div>
 
-                                        {/* Mock Distribution Chart - Since we don't have full raw array easily available in this view object, we simulate a bell curve based on avg */}
                                         <div style={{height: '200px'}}>
                                             <Bar 
                                                 data={{

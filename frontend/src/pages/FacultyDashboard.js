@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import { API_URL } from '../config';
 
 const FacultyDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -33,7 +34,7 @@ const FacultyDashboard = () => {
     try {
       setLoading(true);
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
+      const { data } = await axios.get(`${API_URL}/api/faculty/students`, config);
       setStudents(data);
       
       const initAtt = {};
@@ -54,7 +55,7 @@ const FacultyDashboard = () => {
   const fetchMentees = async () => {
       try {
           const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-          const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/mentor/mentees`, config);
+          const res = await axios.get(`${API_URL}/api/mentor/mentees`, config);
           setMentees(res.data);
       } catch (err) { console.error(err); }
   };
@@ -77,7 +78,7 @@ const FacultyDashboard = () => {
                     'Content-Type': 'multipart/form-data'
                 } 
             };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/upload-csv`, formData, config);
+            await axios.post(`${API_URL}/api/faculty/upload-csv`, formData, config);
             setMessage({ text: 'CSV Attendance Uploaded Successfully!', type: 'success' });
             setCsvFile(null);
         } catch (err) {
@@ -94,7 +95,7 @@ const FacultyDashboard = () => {
 
     try {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/attendance`, {
+      await axios.post(`${API_URL}/api/faculty/attendance`, {
           subjectName: subject,
           date,
           records
@@ -123,7 +124,7 @@ const FacultyDashboard = () => {
 
     try {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/faculty/marks`, {
+      await axios.post(`${API_URL}/api/faculty/marks`, {
           subjectName: subject,
           examType,
           maxMarks,
