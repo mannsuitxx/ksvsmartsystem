@@ -20,14 +20,28 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('user', JSON.stringify(data)); // Refresh local storage
         } catch (err) {
             console.error("Token invalid or expired", err);
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            setUser(null);
+            logout();
         }
       }
       setLoading(false);
     };
     checkLoggedIn();
+
+    // Add Axios Interceptor
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          // If 401, logout user
+          logout();
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
   }, []);
 
   const login = async (identifier, password) => {
