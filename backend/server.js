@@ -20,6 +20,8 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Request Logging Middleware
 app.use((req, res, next) => {
+  // Collapse multiple slashes (e.g., //api/auth/login -> /api/auth/login)
+  req.url = req.url.replace(/\/+/g, '/');
   console.log(`[REQUEST] ${req.method} ${req.url}`);
   next();
 });
