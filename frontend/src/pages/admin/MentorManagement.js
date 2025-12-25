@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
+import { API_URL } from '../../config';
 
 const MentorManagement = () => {
     const [faculty, setFaculty] = useState([]);
@@ -17,11 +18,11 @@ const MentorManagement = () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
             // Fetch Faculty Profiles
-            const facRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/faculty`, config);
+            const facRes = await axios.get(`${API_URL}/api/admin/faculty`, config);
             setFaculty(facRes.data);
             
             // Fetch Students
-            const stuRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/faculty/students`, config);
+            const stuRes = await axios.get(`${API_URL}/api/faculty/students`, config);
             setStudents(stuRes.data);
         } catch (err) { console.error(err); }
     };
@@ -40,7 +41,7 @@ const MentorManagement = () => {
                 return;
             }
 
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/mentor/assign`, {
+            await axios.post(`${API_URL}/api/admin/mentor/assign`, {
                 facultyId: targetFac.userId._id, 
                 studentIds: selectedStudents
             }, config);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 import { Bar } from 'react-chartjs-2';
 
 const AttendanceDrillDown = ({ studentId }) => {
@@ -11,7 +12,7 @@ const AttendanceDrillDown = ({ studentId }) => {
     const fetchData = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/attendance/${studentId}`, config);
+        const res = await axios.get(`${API_URL}/api/student/attendance/${studentId}`, config);
         setData(res.data);
       } catch (error) {
         console.error("Error fetching attendance details", error);

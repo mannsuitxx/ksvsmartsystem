@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 export const AuthContext = createContext();
 
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/me`, config);
+            const { data } = await axios.get(`${API_URL}/api/auth/me`, config);
             
             setUser(data);
             localStorage.setItem('user', JSON.stringify(data)); // Refresh local storage
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, { identifier, password }, config);
+      const { data } = await axios.post(`${API_URL}/api/auth/login`, { identifier, password }, config);
       
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));

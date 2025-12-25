@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const NotificationPanel = () => {
   const [notifications, setNotifications] = useState([]);
@@ -9,7 +10,7 @@ const NotificationPanel = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/student/notifications`, config);
+      const res = await axios.get(`${API_URL}/api/student/notifications`, config);
       setNotifications(res.data);
     } catch (e) {
       console.error("Error fetching notifications", e);
@@ -29,7 +30,7 @@ const NotificationPanel = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.put(`${process.env.REACT_APP_API_URL}/api/student/notifications/${id}/read`, {}, config);
+      await axios.put(`${API_URL}/api/student/notifications/${id}/read`, {}, config);
       setNotifications(notifications.map(n => n._id === id ? { ...n, isRead: true } : n));
     } catch (e) {
       console.error("Error marking as read", e);

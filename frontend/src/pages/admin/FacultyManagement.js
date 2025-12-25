@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
+import { API_URL } from '../../config';
 
 const FacultyManagement = () => {
     const [faculty, setFaculty] = useState([]);
@@ -16,7 +17,7 @@ const FacultyManagement = () => {
     const fetchData = async () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const facultyRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/faculty`, config);
+            const facultyRes = await axios.get(`${API_URL}/api/admin/faculty`, config);
             setFaculty(facultyRes.data);
             setLoading(false);
         } catch (err) { console.error(err); }
@@ -26,7 +27,7 @@ const FacultyManagement = () => {
         e.preventDefault();
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/faculty`, formData, config);
+            const res = await axios.post(`${API_URL}/api/admin/faculty`, formData, config);
             
             setMsg({ text: `Success! Login created for ${res.data.credentials.email}`, type: 'success' });
             fetchData();
@@ -41,7 +42,7 @@ const FacultyManagement = () => {
         
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/users/${userId}`, config);
+            await axios.delete(`${API_URL}/api/admin/users/${userId}`, config);
             setMsg({ text: 'Faculty removed successfully', type: 'success' });
             fetchData();
         } catch (err) {

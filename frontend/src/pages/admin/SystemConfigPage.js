@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
+import { API_URL } from '../../config';
 
 const SystemConfigPage = () => {
     const [configs, setConfigs] = useState([]);
@@ -17,7 +18,7 @@ const SystemConfigPage = () => {
     const fetchData = async () => {
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/config`, config);
+            const res = await axios.get(`${API_URL}/api/admin/config`, config);
             setConfigs(res.data);
             
             // Hydrate local state if exists
@@ -33,7 +34,7 @@ const SystemConfigPage = () => {
     const updateConfig = async (key, value, description) => {
         try {
             const configHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/config`, { key, value, description }, configHeader);
+            await axios.post(`${API_URL}/api/admin/config`, { key, value, description }, configHeader);
             alert(`Updated ${key} successfully!`);
             fetchData();
         } catch (err) { alert('Update failed'); }
