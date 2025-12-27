@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
 
 import StudentDashboard from './pages/StudentDashboard';
@@ -41,6 +42,16 @@ import StudentDirectory from './pages/StudentDirectory';
 import StudentProfileView from './pages/StudentProfileView';
 import WhatIfSimulator from './pages/WhatIfSimulator';
 import StudentMyProfile from './pages/StudentMyProfile';
+import MentorEmailSystem from './pages/MentorEmailSystem';
+import MentorPendingAchievements from './pages/MentorPendingAchievements';
+import MentorMedicalLeaves from './pages/MentorMedicalLeaves';
+import StudentAchievements from './pages/StudentAchievements';
+import StudentResources from './pages/StudentResources';
+import StudentMedicalLeave from './pages/StudentMedicalLeave';
+import FacultyClassUpdate from './pages/FacultyClassUpdate';
+import ClassUpdateLogs from './pages/ClassUpdateLogs';
+import AdminResourceMgmt from './pages/admin/AdminResourceMgmt';
+import EmailLogs from './pages/admin/EmailLogs';
 
 function App() {
   return (
@@ -48,11 +59,15 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Student Routes */}
           <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute>} />
           <Route path="/student/simulator" element={<PrivateRoute><WhatIfSimulator /></PrivateRoute>} />
           <Route path="/student/profile" element={<PrivateRoute><StudentMyProfile /></PrivateRoute>} />
+          <Route path="/student/achievements" element={<PrivateRoute><StudentAchievements /></PrivateRoute>} />
+          <Route path="/student/resources" element={<PrivateRoute><StudentResources /></PrivateRoute>} />
+          <Route path="/student/leaves" element={<PrivateRoute><StudentMedicalLeave /></PrivateRoute>} />
           <Route path="/student/planner" element={<PrivateRoute><StudentAcademicPlanner /></PrivateRoute>} />
           <Route path="/student/attendance-recovery" element={<PrivateRoute><AttendanceWarning /></PrivateRoute>} />
           <Route path="/student/backlog-risk" element={<PrivateRoute><BacklogRiskAnalyzer /></PrivateRoute>} />
@@ -67,12 +82,16 @@ function App() {
           <Route path="/faculty/history" element={<PrivateRoute><FacultyHistory /></PrivateRoute>} />
           <Route path="/faculty/attendance" element={<PrivateRoute><FacultyAttendance /></PrivateRoute>} />
           <Route path="/faculty/marks" element={<PrivateRoute><FacultyMarks /></PrivateRoute>} />
+          <Route path="/faculty/class-updates" element={<PrivateRoute><FacultyClassUpdate /></PrivateRoute>} />
           <Route path="/faculty/engagement" element={<PrivateRoute><LowEngagementDetector /></PrivateRoute>} />
           <Route path="/faculty/class-health" element={<PrivateRoute><ClassHealthReport /></PrivateRoute>} />
           <Route path="/faculty/assessment-analysis" element={<PrivateRoute><AssessmentDifficultyAnalyzer /></PrivateRoute>} />
 
           {/* Mentor Routes */}
           <Route path="/mentor/dashboard" element={<PrivateRoute><MentorDashboard /></PrivateRoute>} />
+          <Route path="/mentor/email" element={<PrivateRoute><MentorEmailSystem /></PrivateRoute>} />
+          <Route path="/mentor/achievements" element={<PrivateRoute><MentorPendingAchievements /></PrivateRoute>} />
+          <Route path="/mentor/leaves" element={<PrivateRoute><MentorMedicalLeaves /></PrivateRoute>} />
           <Route path="/mentor/workload" element={<PrivateRoute><MentorWorkloadDashboard /></PrivateRoute>} />
           <Route path="/mentor/effectiveness" element={<PrivateRoute><InterventionEffectivenessTracker /></PrivateRoute>} />
           
@@ -83,6 +102,7 @@ function App() {
           <Route path="/hod/sem-comparison" element={<PrivateRoute><SemesterComparison /></PrivateRoute>} />
           <Route path="/hod/early-detention" element={<PrivateRoute><EarlyDetentionPrediction /></PrivateRoute>} />
           <Route path="/hod/compliance" element={<PrivateRoute><AuditCompliance /></PrivateRoute>} />
+          <Route path="/hod/class-logs" element={<PrivateRoute><ClassUpdateLogs /></PrivateRoute>} />
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
@@ -90,8 +110,10 @@ function App() {
           <Route path="/admin/mentors" element={<PrivateRoute><MentorManagement /></PrivateRoute>} />
           <Route path="/admin/academics" element={<PrivateRoute><DepartmentSetup /></PrivateRoute>} />
           <Route path="/admin/calendar" element={<PrivateRoute><AcademicCalendarManager /></PrivateRoute>} />
+          <Route path="/admin/resources" element={<PrivateRoute><AdminResourceMgmt /></PrivateRoute>} />
           <Route path="/admin/config" element={<PrivateRoute><SystemConfigPage /></PrivateRoute>} />
           <Route path="/admin/data" element={<PrivateRoute><DataImportExport /></PrivateRoute>} />
+          <Route path="/admin/email-logs" element={<PrivateRoute><EmailLogs /></PrivateRoute>} />
           <Route path="/admin/logs" element={<PrivateRoute><AuditLogs /></PrivateRoute>} />
           
           <Route path="/" element={<Navigate to="/login" />} />

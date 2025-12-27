@@ -10,6 +10,7 @@ const StudentMyProfile = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [msg, setMsg] = useState('');
     const [loading, setLoading] = useState(false);
+    const [achievements, setAchievements] = useState([]);
 
     const fetchProfile = async () => {
         try {
@@ -25,6 +26,11 @@ const StudentMyProfile = () => {
                 lastName: names.slice(1).join(' ') || '',
                 currentSemester: p.semester || ''
             });
+
+            // Fetch Approved Achievements
+            const achRes = await axios.get(`${API_URL}/api/achievements/my`, config);
+            setAchievements(achRes.data.filter(a => a.status === 'approved'));
+
         } catch (e) { 
             console.error("[DEBUG] Fetch Profile Error:", e.response?.data || e.message);
         }
@@ -72,7 +78,9 @@ const StudentMyProfile = () => {
 
     return (
         <Layout title="Edit Profile">
-                    <div className="card shadow border-0" style={{maxWidth: '700px', margin: '0 auto'}}>
+            <div className="row justify-content-center">
+                <div className="col-md-7 mb-4">
+                    <div className="card shadow border-0">
                         <div className="card-body p-4">
                             <h4 className="fw-bold mb-4 text-center">My Academic Profile</h4>
                             
@@ -145,8 +153,38 @@ const StudentMyProfile = () => {
                             </form>
                         </div>
                     </div>
+                </div>
+
+                <div className="col-md-5">
+                    <div className="card shadow border-0">
+                        <div className="card-header bg-white fw-bold">Recognized Achievements</div>
+                        <div className="card-body p-0">
+                            <ul className="list-group list-group-flush">
+                                {achievements.map(a => (
+                                    <li className="list-group-item p-3" key={a._id}>
+                                        <div className="fw-bold text-primary">{a.title}</div>
+                                        <div className="small text-muted mb-2">{a.description}</div>
+                                        <a href={`${API_URL}${a.certificateUrl}`} target="_blank" rel="noopener noreferrer" className="badge bg-light text-dark text-decoration-none border">
+                                            <i className="bi bi-file-earmark-check me-1"></i> Verified Certificate
+                                        </a>
+                                        <div className="text-end text-muted" style={{fontSize: '0.75rem'}}>
+                                            {new Date(a.date).toLocaleDateString()}
+                                        </div>
+                                    </li>
+                                ))}
+                                {achievements.length === 0 && (
+                                    <li className="list-group-item p-4 text-center text-muted">
+                                        No approved achievements yet. Upload them <a href="/student/achievements">here</a>.
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </Layout>
     );
 };
 
 export default StudentMyProfile;
+

@@ -63,6 +63,7 @@ const uploadStudents = asyncHandler(async (req, res) => {
             let email = normalizedRow['email'] || normalizedRow['studentemail'];
             const dept = normalizedRow['department'] || normalizedRow['dept'];
             const sem = normalizedRow['semester'] || normalizedRow['sem'] || normalizedRow['currentsemester'];
+            const parentEmail = normalizedRow['parentemail'] || normalizedRow['parent_email'] || normalizedRow['pemail'];
 
             if (!enrollment || !name || !email) {
                 console.log('Skipping invalid row:', row);
@@ -101,7 +102,8 @@ const uploadStudents = asyncHandler(async (req, res) => {
                         email, // For redundancy/display
                         department: dept || 'General',
                         currentSemester: sem ? Number(sem) : 1,
-                        division: 'A'
+                        division: 'A',
+                        parentEmail: parentEmail ? parentEmail.trim().toLowerCase() : undefined
                     }
                 },
                 { upsert: true }
@@ -129,7 +131,7 @@ const uploadStudents = asyncHandler(async (req, res) => {
 // @route   POST /api/students/add
 // @access  Private (Faculty/Admin)
 const addSingleStudent = asyncHandler(async (req, res) => {
-  const { enrollmentNumber, firstName, lastName, email, department, currentSemester } = req.body;
+  const { enrollmentNumber, firstName, lastName, email, department, currentSemester, parentEmail } = req.body;
 
   if (!enrollmentNumber || !email || !firstName) {
     res.status(400);
@@ -162,6 +164,7 @@ const addSingleStudent = asyncHandler(async (req, res) => {
     department,
     currentSemester,
     division: 'A', // Default
+    parentEmail,
     riskProfile: { score: 0, level: 'Safe' }
   });
 

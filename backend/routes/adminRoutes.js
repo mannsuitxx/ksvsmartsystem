@@ -6,7 +6,8 @@ const {
     assignMentor,
     createDepartment, getDepartments, createSubject, getSubjects,
     addCalendarEvent, getCalendarEvents,
-    updateSystemConfig, getSystemConfig
+    updateSystemConfig, getSystemConfig,
+    resetSemester, downloadSystemLogs
 } = require('../controllers/adminController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -37,5 +38,8 @@ router.get('/calendar', getCalendarEvents);
 // System Config
 router.post('/config', updateSystemConfig);
 router.get('/config', getSystemConfig);
+router.post('/system/reset-semester', resetSemester);
+router.get('/system/logs', downloadSystemLogs);
+router.post('/system/trigger-reports', require('../controllers/adminController').triggerMonthlyReports);
 
 module.exports = router;

@@ -90,12 +90,20 @@ const Sidebar = ({ role, onClose }) => {
               Upload Marks
             </button>
           </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/faculty/class-updates')} 
+              className={`nav-link w-100 text-start ${isActive('/faculty/class-updates')}`}
+            >
+              Class Updates
+            </button>
+          </li>
         </ul>
       )}
 
       {/* MENTOR MENU (Standard) */}
       {role === 'mentor' && (
-        <ul className="nav nav-pills flex-column mb-auto">
+        <ul className="nav nav-pills flex-column mb-auto pt-3 border-top mt-3">
           <li className="nav-item mb-2 px-3 text-muted small fw-bold">MENTOR MENU</li>
           <li className="nav-item mb-2">
             <button 
@@ -103,6 +111,30 @@ const Sidebar = ({ role, onClose }) => {
               className={`nav-link w-100 text-start ${isActive('/mentor/dashboard')}`}
             >
               Mentee List
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/mentor/email')} 
+              className={`nav-link w-100 text-start ${isActive('/mentor/email')}`}
+            >
+              Email System
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/mentor/achievements')} 
+              className={`nav-link w-100 text-start ${isActive('/mentor/achievements')}`}
+            >
+              Pending Achievements
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/mentor/leaves')} 
+              className={`nav-link w-100 text-start ${isActive('/mentor/leaves')}`}
+            >
+              Medical Leaves
             </button>
           </li>
           <li className="nav-item mb-2">
@@ -134,6 +166,30 @@ const Sidebar = ({ role, onClose }) => {
               className={`nav-link w-100 text-start ${isActive('/student/dashboard')}`}
             >
               My Dashboard
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/student/achievements')} 
+              className={`nav-link w-100 text-start ${isActive('/student/achievements')}`}
+            >
+              My Achievements
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/student/resources')} 
+              className={`nav-link w-100 text-start ${isActive('/student/resources')}`}
+            >
+              Exam Resources
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/student/leaves')} 
+              className={`nav-link w-100 text-start ${isActive('/student/leaves')}`}
+            >
+              Medical Leave
             </button>
           </li>
           <li className="nav-item mb-2">
@@ -247,6 +303,14 @@ const Sidebar = ({ role, onClose }) => {
               Audit & Compliance
             </button>
           </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/hod/class-logs')} 
+              className={`nav-link w-100 text-start ${isActive('/hod/class-logs')}`}
+            >
+              Class Logs
+            </button>
+          </li>
         </ul>
       )}
 
@@ -288,6 +352,14 @@ const Sidebar = ({ role, onClose }) => {
           </li>
           <li className="nav-item mb-2">
             <button 
+              onClick={() => navigate('/admin/resources')} 
+              className={`nav-link w-100 text-start ${isActive('/admin/resources')}`}
+            >
+              Resource Mgmt
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
               onClick={() => navigate('/admin/calendar')} 
               className={`nav-link w-100 text-start ${isActive('/admin/calendar')}`}
             >
@@ -308,6 +380,14 @@ const Sidebar = ({ role, onClose }) => {
               className={`nav-link w-100 text-start ${isActive('/admin/data')}`}
             >
               Data Import/Export
+            </button>
+          </li>
+          <li className="nav-item mb-2">
+            <button 
+              onClick={() => navigate('/admin/email-logs')} 
+              className={`nav-link w-100 text-start ${isActive('/admin/email-logs')}`}
+            >
+              Email Logs
             </button>
           </li>
           <li className="nav-item mb-2">

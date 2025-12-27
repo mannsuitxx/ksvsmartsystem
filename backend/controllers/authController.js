@@ -3,12 +3,45 @@ const User = require('../models/User');
 const Student = require('../models/Student');
 const Faculty = require('../models/Faculty');
 const jwt = require('jsonwebtoken');
+const { sendEmail } = require('../utils/emailService');
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
     expiresIn: '24h',
   });
 };
+
+// @desc    Forgot Password
+// @route   POST /api/auth/forgot-password
+// @access  Public
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  // Generate Temp Password
+  const tempPass = Math.random().toString(36).slice(-8);
+  user.passwordHash = tempPass; // Will be hashed by pre-save hook
+  await user.save();
+
+  // Send Email
+  try {
+    await sendEmail({
+        to: user.email,
+        subject: 'Password Reset Request - KSV Smart System',
+        htmlContent: `<p>Your temporary password is: <strong>${tempPass}</strong></p><p>Please login and change it immediately.</p>`,
+        textContent: `Your temporary password is: ${tempPass}`
+    });
+    res.json({ message: 'Temporary password sent to your email.' });
+  } catch (error) {
+    res.status(500);
+    throw new Error('Failed to send email');
+  }
+});
 
 // @desc    Get List of Faculty for Login Dropdown
 // @route   GET /api/auth/faculty-list
@@ -149,4 +182,4 @@ const getMe = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { loginUser, registerUser, getFacultyLoginList, getMe };
+module.exports = { loginUser, registerUser, getFacultyLoginList, getMe, forgotPassword };

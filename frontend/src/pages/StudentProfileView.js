@@ -13,6 +13,7 @@ const StudentProfileView = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [leaves, setLeaves] = useState([]);
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -21,6 +22,11 @@ const StudentProfileView = () => {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
         const res = await axios.get(url, config);
         setStudent(res.data);
+        
+        // Fetch leaves
+        const leaveRes = await axios.get(`${API_URL}/api/leaves/student/${id}`, config);
+        setLeaves(leaveRes.data.filter(l => l.status === 'approved'));
+
       } catch (e) { 
         console.error("Error fetching student profile:", e);
         setError(e.response?.data?.message || 'Failed to load profile');
@@ -73,6 +79,24 @@ const StudentProfileView = () => {
                 </div>
                 <div className="col-md-8">
                     <RiskExplanation risk={student.riskProfile} />
+                    
+                    {/* Approved Medical Leaves */}
+                    {leaves.length > 0 && (
+                        <div className="card shadow border-0 mt-3">
+                            <div className="card-header bg-success text-white small fw-bold">Approved Medical Leaves (Exempted)</div>
+                            <ul className="list-group list-group-flush small">
+                                {leaves.map(l => (
+                                    <li key={l._id} className="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            {new Date(l.startDate).toLocaleDateString()} - {new Date(l.endDate).toLocaleDateString()}
+                                            <span className="text-muted ms-2">({l.reason})</span>
+                                        </span>
+                                        <span className="badge bg-success">Approved</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
 

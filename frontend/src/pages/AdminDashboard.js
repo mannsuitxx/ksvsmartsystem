@@ -78,6 +78,41 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleSemesterReset = async () => {
+        if(window.confirm('Are you sure you want to promote all students to the next semester? This cannot be undone.')) {
+            try {
+                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+                await axios.post(`${API_URL}/api/admin/system/reset-semester`, {}, config);
+                alert('Semester Reset Successful');
+                fetchData();
+            } catch (err) { alert('Operation Failed'); }
+        }
+    };
+
+    const handleDownloadLogs = async () => {
+        try {
+            const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, responseType: 'blob' };
+            const res = await axios.get(`${API_URL}/api/admin/system/logs`, config);
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'system_audit_logs.csv');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (err) { alert('Download Failed'); }
+    };
+
+    const handleTriggerReports = async () => {
+        if(window.confirm('Run monthly academic reports for all students immediately? Emails will be sent.')) {
+            try {
+                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+                await axios.post(`${API_URL}/api/admin/system/trigger-reports`, {}, config);
+                alert('Reports Generation Started');
+            } catch (err) { alert('Failed to trigger reports'); }
+        }
+    };
+
     if (loading) return <div className="p-5 text-center text-muted">Loading System Admin...</div>;
 
     return (
@@ -141,12 +176,17 @@ const AdminDashboard = () => {
                                         <div className="card-header bg-danger text-white fw-bold">System Actions</div>
                                         <div className="card-body">
                                             <p className="text-muted small">Critical actions for system maintenance.</p>
-                                            <button className="btn btn-outline-danger me-2" onClick={() => alert('Feature simulated: Semester Reset')}>
-                                                <i className="bi bi-arrow-counterclockwise me-2"></i>Reset Semester Data
-                                            </button>
-                                            <button className="btn btn-outline-dark" onClick={() => alert('Feature simulated: System Logs Downloaded')}>
-                                                <i className="bi bi-download me-2"></i>Download Logs
-                                            </button>
+                                            <div className="d-flex gap-2">
+                                                <button className="btn btn-outline-danger" onClick={handleSemesterReset}>
+                                                    <i className="bi bi-arrow-counterclockwise me-2"></i>Reset Semester
+                                                </button>
+                                                <button className="btn btn-outline-dark" onClick={handleDownloadLogs}>
+                                                    <i className="bi bi-download me-2"></i>Logs
+                                                </button>
+                                                <button className="btn btn-outline-primary" onClick={handleTriggerReports}>
+                                                    <i className="bi bi-envelope-paper me-2"></i>Run Reports
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

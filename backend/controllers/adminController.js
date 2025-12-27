@@ -6,6 +6,7 @@ const Department = require('../models/Department');
 const Subject = require('../models/Subject');
 const AcademicCalendar = require('../models/AcademicCalendar');
 const SystemConfig = require('../models/SystemConfig');
+const { generateMonthlyReports } = require('../utils/cronJobs');
 
 // @desc    Get System Stats
 // @route   GET /api/admin/stats
@@ -256,11 +257,73 @@ const getSystemConfig = asyncHandler(async (req, res) => {
 });
 
 
+// @desc    Reset Semester (Promote all students)
+// @route   POST /api/admin/system/reset-semester
+// @access  Private (Admin)
+const resetSemester = asyncHandler(async (req, res) => {
+    // Increment semester for all students
+    const result = await Student.updateMany(
+        {}, 
+        { $inc: { currentSemester: 1 } }
+    );
+    
+    // Optional: Archive students > 8 sem?
+    // For now, simple promotion.
+    
+    res.json({ 
+        message: 'Semester Reset Successful. Students Promoted.',
+        affected: result.modifiedCount 
+    });
+});
+
+// @desc    Download System Logs
+// @route   GET /api/admin/system/logs
+// @access  Private (Admin)
+const downloadSystemLogs = asyncHandler(async (req, res) => {
+    // Generate a log file on the fly
+    // Include Email Logs, Class Updates (as proxy for activity)
+    // and maybe some mock system events for "realism" if real audit log missing.
+    
+    const EmailLog = require('../models/EmailLog');
+    const ClassUpdate = require('../models/ClassUpdate');
+    
+    const emailLogs = await EmailLog.find({}).limit(50).sort({createdAt: -1});
+    const classLogs = await ClassUpdate.find({}).limit(50).sort({createdAt: -1});
+    
+    let logContent = "TIMESTAMP,TYPE,USER,DETAILS\n";
+    
+    emailLogs.forEach(l => {
+        logContent += `${l.createdAt.toISOString()},EMAIL,${l.recipientEmail},Subject: ${l.subject}\n`;
+    });
+    
+    classLogs.forEach(l => {
+        logContent += `${l.createdAt.toISOString()},CLASS_UPDATE,FacultyID:${l.facultyId},Subject: ${l.subject} Status: ${l.status}\n`;
+    });
+    
+    res.header('Content-Type', 'text/csv');
+    res.attachment('system_audit_logs.csv');
+    res.send(logContent);
+});
+
+// @desc    Manually Trigger Monthly Reports
+// @route   POST /api/admin/system/trigger-reports
+// @access  Private (Admin)
+const triggerMonthlyReports = asyncHandler(async (req, res) => {
+    // Run asynchronously to not block response if many students
+    generateMonthlyReports().then(count => {
+        console.log(`Manual Report Trigger Finished. Sent ${count} emails.`);
+    });
+    
+    res.json({ message: 'Monthly Reports Generation Started in Background.' });
+});
+
 module.exports = { 
     getSystemStats, getAllUsers, deleteUser, createUser, updateUserRole,
     addFacultyProfile, getAllFaculty,
     assignMentor,
     createDepartment, getDepartments, createSubject, getSubjects,
     addCalendarEvent, getCalendarEvents,
-    updateSystemConfig, getSystemConfig
+    updateSystemConfig, getSystemConfig,
+    resetSemester, downloadSystemLogs,
+    triggerMonthlyReports
 };

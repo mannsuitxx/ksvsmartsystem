@@ -24,7 +24,7 @@ const FacultyStudentList = () => {
 
     // Single Add State
     const [formData, setFormData] = useState({
-        enrollmentNumber: '', firstName: '', lastName: '', email: '', department: 'Computer Engineering', currentSemester: 1
+        enrollmentNumber: '', firstName: '', lastName: '', email: '', parentEmail: '', department: 'Computer Engineering', currentSemester: 1
     });
 
     const fetchStudents = useCallback(async () => {
@@ -91,7 +91,7 @@ const FacultyStudentList = () => {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
             await axios.post(`${API_URL}/api/students/add`, formData, config);
             setUploadMsg({ text: 'Student Account Created! Default Pass: 123456', type: 'success' });
-            setFormData({ enrollmentNumber: '', firstName: '', lastName: '', email: '', department: 'Computer Engineering', currentSemester: 1 });
+            setFormData({ enrollmentNumber: '', firstName: '', lastName: '', email: '', parentEmail: '', department: 'Computer Engineering', currentSemester: 1 });
             setTimeout(() => setView('list'), 2000);
         } catch (err) {
              const msg = err.response?.data?.message || 'Creation Failed';
@@ -169,6 +169,11 @@ const FacultyStudentList = () => {
                                                 value={formData.lastName} onChange={e=>setFormData({...formData, lastName: e.target.value})} />
                                         </div>
                                         <div className="col-md-6">
+                                            <label className="form-label">Parent Email (For Reports)</label>
+                                            <input type="email" className="form-control" 
+                                                value={formData.parentEmail} onChange={e=>setFormData({...formData, parentEmail: e.target.value})} />
+                                        </div>
+                                        <div className="col-md-6">
                                             <label className="form-label">Department</label>
                                             <select className="form-select" value={formData.department} onChange={e=>setFormData({...formData, department: e.target.value})}>
                                                 <option>Computer Engineering</option>
@@ -200,7 +205,7 @@ const FacultyStudentList = () => {
                                 <div className="row g-3">
                                     <div className="col-md-6">
                                         <input type="file" className="form-control" accept=".csv" onChange={handleFileSelect} />
-                                        <div className="form-text">Format: enrollment, name, department, semester, email</div>
+                                        <div className="form-text">Format: enrollment, name, department, semester, email, parentEmail</div>
                                     </div>
                                     <div className="col-md-6">
                                         <button className="btn btn-success w-100" disabled={!csvFile} onClick={handleUploadSubmit}>Upload CSV</button>

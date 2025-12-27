@@ -35,6 +35,10 @@ const studentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Refers to a Faculty user
   },
+  parentEmail: {
+    type: String,
+    required: false, // Optional for now, can be updated later
+  },
   profilePicture: {
     type: String, // Path to image
     default: null

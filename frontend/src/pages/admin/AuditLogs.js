@@ -1,32 +1,74 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Layout from '../../components/Layout';
 import moment from 'moment';
+import { API_URL } from '../../config';
 
 const AuditLogs = () => {
-    // Reusing the HOD audit logic or creating a specific Admin one.
-    // Since HOD logic exists, we can create an Admin specific one or reuse.
-    // Let's create a dedicated one for Admin that might show MORE info (like Login logs).
     const [logs, setLogs] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulated Logs for Admin view since backend doesn't have a dedicated "Admin Audit" table yet
-        // In real app: axios.get('/api/admin/audit-logs')
-        const mockLogs = [
-            { type: 'Login', user: 'admin@ksv.ac.in', action: 'System Login', ip: '192.168.1.10', date: new Date() },
-            { type: 'Data Import', user: 'admin@ksv.ac.in', action: 'Uploaded 120 Students', ip: '192.168.1.10', date: new Date(Date.now() - 3600000) },
-            { type: 'Config Change', user: 'hod.ce@ksv.ac.in', action: 'Changed Detention Rule', ip: '10.0.0.5', date: new Date(Date.now() - 86400000) },
-            { type: 'User Created', user: 'admin@ksv.ac.in', action: 'Added Faculty: Dr. Smith', ip: '192.168.1.10', date: new Date(Date.now() - 172800000) },
-        ];
-        setLogs(mockLogs);
+        const fetchLogs = async () => {
+            try {
+                // In a real system, we'd fetch from a dedicated audit table
+                // For now, we combine EmailLogs and ClassUpdate logs as "Activity Logs"
+                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+                const emailRes = await axios.get(`${API_URL}/api/email/logs`, config);
+                const classRes = await axios.get(`${API_URL}/api/class-updates`, config);
+                
+                const emailLogs = emailRes.data.map(l => ({
+                    date: l.createdAt,
+                    type: 'EMAIL',
+                    user: l.senderId?.name || 'System',
+                    action: `Sent ${l.type} to ${l.recipientEmail}`,
+                    ip: 'N/A'
+                }));
+
+                const classLogs = classRes.data.map(l => ({
+                    date: l.date,
+                    type: 'CLASS',
+                    user: l.facultyId?.name || 'Faculty',
+                    action: `${l.status.toUpperCase()}: ${l.subject} (${l.topic})`,
+                    ip: 'N/A'
+                }));
+
+                const combined = [...emailLogs, ...classLogs].sort((a, b) => new Date(b.date) - new Date(a.date));
+                setLogs(combined);
+            } catch (err) { console.error(err); }
+            setLoading(false);
+        };
+        fetchLogs();
     }, []);
+
+    const handleExport = () => {
+        const headers = "Timestamp,Type,User,Action Detail,IP\n";
+        const rows = logs.map(l => 
+            `"${moment(l.date).format('YYYY-MM-DD HH:mm:ss')}","${l.type}","${l.user}","${l.action}","${l.ip}"`
+        ).join("\n");
+        
+        const csvContent = "data:text/csv;charset=utf-8," + headers + rows;
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "system_activity_logs.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    if (loading) return <Layout title="Audit Logs"><div>Loading...</div></Layout>;
 
     return (
         <Layout title="Audit & Activity Logs">
-
+                    <div className="d-flex justify-content-end mb-3">
+                        <button onClick={handleExport} className="btn btn-outline-primary">
+                            <i className="bi bi-download me-2"></i>Download CSV
+                        </button>
+                    </div>
                     <div className="card shadow border-0">
-
                         <div className="card-header bg-dark text-white py-3">
-                            <h6 className="m-0 font-weight-bold">System Security Logs</h6>
+                            <h6 className="m-0 font-weight-bold">System Security & Activity Logs</h6>
                         </div>
                         <div className="card-body p-0">
                             <div className="table-responsive">
@@ -48,8 +90,8 @@ const AuditLogs = () => {
                                                 </td>
                                                 <td>
                                                     <span className={`badge ${
-                                                        log.type === 'Login' ? 'bg-info' : 
-                                                        log.type === 'Config Change' ? 'bg-warning text-dark' : 'bg-secondary'
+                                                        log.type === 'EMAIL' ? 'bg-info' : 
+                                                        log.type === 'CLASS' ? 'bg-primary' : 'bg-secondary'
                                                     }`}>{log.type}</span>
                                                 </td>
                                                 <td className="fw-bold">{log.user}</td>
@@ -57,12 +99,12 @@ const AuditLogs = () => {
                                                 <td className="font-monospace small">{log.ip}</td>
                                             </tr>
                                         ))}
+                                        {logs.length === 0 && <tr><td colSpan="5" className="text-center p-4">No activity logs found.</td></tr>}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
         </Layout>
     );
 };

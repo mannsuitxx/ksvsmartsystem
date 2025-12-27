@@ -2,13 +2,15 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const { setupCronJobs } = require('./utils/cronJobs');
 
 const path = require('path');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-dotenv.config({ path: path.join(__dirname, '.env') });
+dotenv.config();
 
 connectDB();
+setupCronJobs();
 
 const app = express();
 
@@ -34,6 +36,12 @@ app.use('/api/students', require('./routes/studentManagementRoutes'));
 app.use('/api/mentor', require('./routes/mentorRoutes'));
 app.use('/api/hod', require('./routes/hodRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/email', require('./routes/emailRoutes'));
+app.use('/api/achievements', require('./routes/achievementRoutes'));
+app.use('/api/resources', require('./routes/resourceRoutes'));
+app.use('/api/leaves', require('./routes/medicalLeaveRoutes'));
+app.use('/api/class-updates', require('./routes/classUpdateRoutes'));
+app.use('/api/export', require('./routes/exportRoutes'));
 
 app.post('*', (req, res, next) => {
   console.log(`[UNMATCHED POST] ${req.method} ${req.url}`);
