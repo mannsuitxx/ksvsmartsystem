@@ -40,6 +40,37 @@ const generateMonthlyReports = async () => {
                 
                 const marksPercentage = totalMax > 0 ? ((totalObtained / totalMax) * 100).toFixed(2) : 0;
 
+                // --- RECALCULATE RISK ---
+                let calculatedRiskLevel = 'Safe';
+                let calculatedRiskScore = 0;
+                let riskFactors = [];
+
+                if (attendancePercentage < 75) {
+                    calculatedRiskScore += 50;
+                    riskFactors.push('Low Attendance (<75%)');
+                }
+                if (marksPercentage < 40) {
+                    calculatedRiskScore += 30;
+                    riskFactors.push('Low Marks (<40%)');
+                }
+
+                if (attendancePercentage < 75 && marksPercentage < 40) {
+                    calculatedRiskLevel = 'High Risk'; // Or 'Critical'
+                } else if (attendancePercentage < 75 || marksPercentage < 40) {
+                    calculatedRiskLevel = 'Moderate Risk';
+                }
+
+                // Update Student Risk Profile if changed
+                if (student.riskProfile?.level !== calculatedRiskLevel) {
+                    student.riskProfile = {
+                        score: calculatedRiskScore,
+                        level: calculatedRiskLevel,
+                        reasons: riskFactors
+                    };
+                    await student.save();
+                    console.log(`[Cron] Updated Risk for ${student.enrollmentNumber} to ${calculatedRiskLevel}`);
+                }
+
                 const message = `
                     <h1>Monthly Student Academic Report</h1>
                     <p>Dear Parent,</p>
@@ -47,7 +78,7 @@ const generateMonthlyReports = async () => {
                     <ul>
                         <li><strong>Attendance:</strong> ${attendancePercentage}%</li>
                         <li><strong>Internal Marks Average:</strong> ${marksPercentage}%</li>
-                        <li><strong>Risk Level:</strong> ${student.riskProfile?.level || 'N/A'}</li>
+                        <li><strong>Risk Level:</strong> <span style="color: ${calculatedRiskLevel === 'Safe' ? 'green' : 'red'}">${calculatedRiskLevel}</span></li>
                     </ul>
                     <p>Please contact the mentor if you have any concerns.</p>
                     <p>KSV Smart System</p>

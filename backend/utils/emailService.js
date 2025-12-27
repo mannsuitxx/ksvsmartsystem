@@ -11,7 +11,7 @@ apiKey.apiKey = process.env.BREVO_API_KEY;
 
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-const sendEmail = async ({ to, subject, htmlContent, textContent }) => {
+const sendEmail = async ({ to, subject, htmlContent, textContent, senderName }) => {
   if (!process.env.BREVO_API_KEY) {
       console.warn('BREVO_API_KEY is not set. Email not sent.');
       return;
@@ -22,8 +22,11 @@ const sendEmail = async ({ to, subject, htmlContent, textContent }) => {
   sendSmtpEmail.subject = subject;
   sendSmtpEmail.htmlContent = htmlContent;
   sendSmtpEmail.textContent = textContent;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || "no-reply@ksvsmart.edu";
-  sendSmtpEmail.sender = { "name": "KSV Smart System", "email": senderEmail };
+  
+  const emailFrom = process.env.BREVO_SENDER_EMAIL || "no-reply@ksvsmart.edu";
+  const nameFrom = senderName || "KSV Smart System";
+  
+  sendSmtpEmail.sender = { "name": nameFrom, "email": emailFrom };
   sendSmtpEmail.to = [{ "email": to }];
 
   try {

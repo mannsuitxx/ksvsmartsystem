@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const EmailLog = require('../models/EmailLog');
 const Student = require('../models/Student');
 const User = require('../models/User');
+const Faculty = require('../models/Faculty');
 const { sendEmail } = require('../utils/emailService');
 
 // @desc    Send email to parent
@@ -16,20 +17,38 @@ const sendParentEmail = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Student not found');
   }
-  console.log(`[DEBUG] Student found: ${student.firstName}, ParentEmail: ${student.parentEmail}`);
 
   if (!student.parentEmail) {
     res.status(400);
     throw new Error('Parent email not found for this student');
   }
 
+  // Fetch Sender Name
+  let senderName = "KSV Smart System";
+  const faculty = await Faculty.findOne({ userId: req.user._id });
+  if (faculty) {
+      senderName = `${faculty.firstName} ${faculty.lastName}`;
+  } else if (req.user.name) { // Fallback if user model has name
+      senderName = req.user.name;
+  }
+
+  // Append Signature
+  const signedMessage = `
+    ${message}
+    <br><br>
+    --<br>
+    <strong>${senderName}</strong><br>
+    KSV Smart Academic System
+  `;
+
   try {
     console.log('[DEBUG] Attempting to send email via service...');
     await sendEmail({
       to: student.parentEmail,
       subject: subject,
-      htmlContent: `<p>${message}</p>`,
-      textContent: message
+      htmlContent: `<p>${message.replace(/\n/g, '<br>')}</p><br><br>--<br><strong>${senderName}</strong><br>KSV Smart System`,
+      textContent: `${message}\n\n--\n${senderName}\nKSV Smart System`,
+      senderName: senderName
     });
     console.log('[DEBUG] Email service success.');
 
@@ -37,7 +56,7 @@ const sendParentEmail = asyncHandler(async (req, res) => {
       senderId: req.user._id,
       recipientEmail: student.parentEmail,
       subject,
-      body: message,
+      body: signedMessage,
       type: 'parent_manual',
       status: 'sent'
     });
@@ -48,7 +67,7 @@ const sendParentEmail = asyncHandler(async (req, res) => {
         senderId: req.user._id,
         recipientEmail: student.parentEmail,
         subject,
-        body: message,
+        body: signedMessage,
         type: 'parent_manual',
         status: 'failed',
         error: error.message
@@ -72,12 +91,20 @@ const sendStudentEmail = asyncHandler(async (req, res) => {
 
   const studentEmail = student.userId.email;
 
+  // Fetch Sender Name
+  let senderName = "KSV Smart System";
+  const faculty = await Faculty.findOne({ userId: req.user._id });
+  if (faculty) {
+      senderName = `${faculty.firstName} ${faculty.lastName}`;
+  }
+
   try {
     await sendEmail({
       to: studentEmail,
       subject: subject,
-      htmlContent: `<p>${message}</p>`,
-      textContent: message
+      htmlContent: `<p>${message.replace(/\n/g, '<br>')}</p><br><br>--<br><strong>${senderName}</strong><br>KSV Smart System`,
+      textContent: `${message}\n\n--\n${senderName}\nKSV Smart System`,
+      senderName: senderName
     });
 
     await EmailLog.create({

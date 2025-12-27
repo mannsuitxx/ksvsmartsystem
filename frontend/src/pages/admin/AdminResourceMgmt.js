@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import { API_URL } from '../../config';
@@ -7,6 +7,21 @@ const AdminResourceMgmt = () => {
     const [formData, setFormData] = useState({ title: '', subject: '', semester: '', year: '', type: 'exam_paper' });
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [resources, setResources] = useState([]);
+
+    const fetchResources = async () => {
+        try {
+            const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+            const res = await axios.get(`${API_URL}/api/resources`, config);
+            setResources(res.data);
+        } catch (error) {
+            console.error('Error fetching resources');
+        }
+    };
+
+    useEffect(() => {
+        fetchResources();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,17 +36,32 @@ const AdminResourceMgmt = () => {
             alert('Resource uploaded successfully!');
             setFormData({ title: '', subject: '', semester: '', year: '', type: 'exam_paper' });
             setFile(null);
+            fetchResources();
         } catch (error) {
             alert('Error uploading resource');
         }
         setUploading(false);
     };
 
+    const handleDelete = async (id) => {
+        if(window.confirm('Are you sure you want to delete this resource?')) {
+            try {
+                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+                await axios.delete(`${API_URL}/api/resources/${id}`, config);
+                alert('Resource deleted');
+                fetchResources();
+            } catch (error) {
+                alert('Error deleting resource');
+            }
+        }
+    };
+
     return (
         <Layout title="Resource Management">
             <div className="row justify-content-center">
                 <div className="col-md-8">
-                    <div className="card shadow-sm border-0">
+                    {/* UPLOAD FORM */}
+                    <div className="card shadow-sm border-0 mb-4">
                         <div className="card-header bg-white fw-bold">Upload Old Exam Papers / Resources</div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>
@@ -79,6 +109,42 @@ const AdminResourceMgmt = () => {
                                     {uploading ? 'Uploading...' : 'Upload Resource'}
                                 </button>
                             </form>
+                        </div>
+                    </div>
+
+                    {/* RESOURCE LIST */}
+                    <div className="card shadow-sm border-0">
+                        <div className="card-header bg-white fw-bold">Existing Resources</div>
+                        <div className="table-responsive">
+                            <table className="table table-hover align-middle mb-0">
+                                <thead className="table-light">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Subject</th>
+                                        <th>Sem</th>
+                                        <th>Year</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {resources.map(r => (
+                                        <tr key={r._id}>
+                                            <td>{r.title}</td>
+                                            <td>{r.subject}</td>
+                                            <td>{r.semester}</td>
+                                            <td>{r.year}</td>
+                                            <td><span className="badge bg-light text-dark border">{r.type}</span></td>
+                                            <td>
+                                                <button onClick={() => handleDelete(r._id)} className="btn btn-sm btn-outline-danger">
+                                                    <i className="bi bi-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {resources.length === 0 && <tr><td colSpan="6" className="text-center p-3">No resources found.</td></tr>}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

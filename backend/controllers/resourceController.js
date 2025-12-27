@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Resource = require('../models/Resource');
+const fs = require('fs');
+const path = require('path');
 
 // @desc    Upload new resource (Exam Paper)
 // @route   POST /api/resources
@@ -41,7 +43,33 @@ const getResources = asyncHandler(async (req, res) => {
   res.json(resources);
 });
 
+// @desc    Delete resource
+// @route   DELETE /api/resources/:id
+// @access  Private (Admin)
+const deleteResource = asyncHandler(async (req, res) => {
+  const resource = await Resource.findById(req.params.id);
+
+  if (!resource) {
+    res.status(404);
+    throw new Error('Resource not found');
+  }
+
+  // Delete file from filesystem
+  // fileUrl is like /uploads/filename.ext
+  // we need backend/uploads/filename.ext
+  if (resource.fileUrl) {
+      const filePath = path.join(__dirname, '..', resource.fileUrl);
+      if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+      }
+  }
+
+  await Resource.deleteOne({ _id: req.params.id });
+  res.json({ message: 'Resource removed' });
+});
+
 module.exports = {
   uploadResource,
-  getResources
+  getResources,
+  deleteResource
 };
