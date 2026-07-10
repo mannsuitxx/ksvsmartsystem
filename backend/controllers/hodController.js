@@ -82,10 +82,34 @@ const getDeepAnalytics = asyncHandler(async (req, res) => {
         };
     }));
 
-    // 3. Semester Comparison
+    // 3. Semester Comparison (Total student counts)
     const studentsBySem = await Student.aggregate([
         { $group: { _id: "$currentSemester", count: { $sum: 1 } } }
     ]);
+
+    // 3b. Risk Distribution Across Semesters (Grouped counts)
+    const riskBySemesterRaw = await Student.aggregate([
+        {
+            $group: {
+                _id: { semester: "$currentSemester", risk: "$riskProfile.level" },
+                count: { $sum: 1 }
+            }
+        }
+    ]);
+    
+    // Format risk distribution per semester
+    const riskBySemester = {};
+    riskBySemesterRaw.forEach(item => {
+        const sem = `Sem ${item._id.semester}`;
+        let risk = item._id.risk || 'Safe';
+        if (risk === 'Moderate Risk') risk = 'Moderate';
+        if (risk === 'High Risk' || risk === 'Critical') risk = 'Critical';
+        
+        if (!riskBySemester[sem]) {
+            riskBySemester[sem] = { Safe: 0, Moderate: 0, Critical: 0 };
+        }
+        riskBySemester[sem][risk] = (riskBySemester[sem][risk] || 0) + item.count;
+    });
 
     // 4. Early Detention Prediction
     // Find students with attendance < 65% in ANY subject
@@ -139,12 +163,105 @@ const getDeepAnalytics = asyncHandler(async (req, res) => {
         }))
     ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20);
 
+    // 6. Assessment Difficulty Analyzer Results
+    const assessmentAnalysis = {};
+    allMarks.forEach(m => {
+        const key = `${m.subjectName} - ${m.examType}`;
+        if (!assessmentAnalysis[key]) {
+            assessmentAnalysis[key] = { 
+                subject: m.subjectName,
+                exam: m.examType,
+                totalStudents: 0, 
+                passedCount: 0, 
+                totalMarksObtained: 0,
+                maxMarks: m.maxMarks,
+            };
+        }
+        const entry = assessmentAnalysis[key];
+        entry.totalStudents++;
+        entry.totalMarksObtained += m.marksObtained;
+        if ((m.marksObtained / m.maxMarks) >= 0.4) {
+            entry.passedCount++;
+        }
+    });
+
+    const assessmentDifficulty = Object.values(assessmentAnalysis).map(a => {
+        const avg = a.totalMarksObtained / a.totalStudents;
+        const passRate = (a.passedCount / a.totalStudents) * 100;
+        let status = 'Balanced';
+        if (passRate < 50) status = 'Too Hard / Poor Performance';
+        if (passRate > 95) status = 'Too Easy / Grade Inflation';
+
+        return {
+            subject: a.subject,
+            exam: a.exam,
+            totalStudents: a.totalStudents,
+            passedCount: a.passedCount,
+            maxMarks: a.maxMarks,
+            averageScore: avg.toFixed(1),
+            passRate: passRate.toFixed(1),
+            status
+        };
+    });
+
+    // 7. Intervention Effectiveness Metrics
+    const allInterventions = await Intervention.find({}).populate('studentId');
+    let totalInterventions = allInterventions.length;
+    let successInterventions = 0;
+    let totalInterventionsEvaluated = 0;
+    const typeCounts = { Meeting: 0, Call: 0, Email: 0, Nudge: 0, Other: 0 };
+    
+    allInterventions.forEach(i => {
+        if (typeCounts[i.type] !== undefined) {
+            typeCounts[i.type]++;
+        } else {
+            typeCounts['Other']++;
+        }
+        if (i.studentId) {
+            const level = i.studentId.riskProfile ? i.studentId.riskProfile.level : 'Safe';
+            if (level !== 'High Risk' && level !== 'Critical') {
+                successInterventions++;
+            }
+            totalInterventionsEvaluated++;
+        }
+    });
+    
+    const interventionEffectiveness = {
+        successRate: totalInterventionsEvaluated === 0 ? 100 : ((successInterventions / totalInterventionsEvaluated) * 100).toFixed(1),
+        totalCount: totalInterventions,
+        typeCounts,
+        recent: allInterventions.slice(0, 10).map(i => ({
+            date: i.date,
+            studentName: i.studentId ? (i.studentId.firstName + ' ' + i.studentId.lastName) : 'Unknown',
+            type: i.type,
+            status: i.status,
+            remarks: i.remarks
+        }))
+    };
+
+    // 8. Faculty Compliance Stats
+    const totalFacultyUsers = await User.countDocuments({ role: 'faculty' });
+    const activeFacultyAttendance = await LectureAttendance.distinct('facultyId');
+    const compliantFacultyCount = activeFacultyAttendance.length;
+    const complianceRate = totalFacultyUsers === 0 ? 100 : ((compliantFacultyCount / totalFacultyUsers) * 100).toFixed(1);
+    
+    const facultyCompliance = {
+        totalFaculty: totalFacultyUsers,
+        activeFaculty: compliantFacultyCount,
+        complianceRate,
+        recentUploads: auditLogs.slice(0, 5)
+    };
+
     res.json({
         failures: subjectFailureReport,
         facultyImpact,
         semesters: studentsBySem,
+        riskBySemester,
         detention: detentionList,
-        audit: auditLogs
+        audit: auditLogs,
+        assessmentDifficulty,
+        interventionEffectiveness,
+        facultyCompliance
     });
 });
 

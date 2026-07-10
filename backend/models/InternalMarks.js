@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const internalMarksSchema = mongoose.Schema({
-  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true, index: true },
   subjectName: { type: String, required: true },
   subjectId: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }, // Optional
   semester: { type: Number, required: true },

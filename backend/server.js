@@ -1,6 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('mongo-sanitize');
 const connectDB = require('./config/db');
 const { setupCronJobs } = require('./utils/cronJobs');
 
@@ -14,7 +17,48 @@ setupCronJobs();
 
 const app = express();
 
-app.use(cors());
+// Security Middlewares
+app.use(helmet());
+
+// Prevent NoSQL Injection
+app.use((req, res, next) => {
+  req.body = mongoSanitize(req.body);
+  req.query = mongoSanitize(req.query);
+  req.params = mongoSanitize(req.params);
+  next();
+});
+
+// Configure CORS
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000'],
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// General API Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: process.env.NODE_ENV === 'development' ? 100000 : 100, // Limit each IP to 100 requests per windowMs
+  message: {
+    message: 'Too many requests from this IP, please try again after 15 minutes.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api', limiter);
+
+// Strict rate limit for auth login route
+const loginLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: process.env.NODE_ENV === 'development' ? 100000 : 10, // Limit each IP to 10 login requests per windowMs
+  message: {
+    message: 'Too many login attempts. Please try again after 10 minutes.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/auth/login', loginLimiter);
+
 app.use(express.json());
 
 // Serve static files from uploads folder

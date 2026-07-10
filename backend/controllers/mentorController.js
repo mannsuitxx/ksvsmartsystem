@@ -110,7 +110,16 @@ const getMentorAnalytics = asyncHandler(async (req, res) => {
              name: `${m.firstName} ${m.lastName}`,
              enrollment: m.enrollmentNumber,
              riskLevel: m.riskProfile ? m.riskProfile.level : 'Safe',
-             lastMeeting: 'Pending' // Would need to query latest intervention per student
+             lastMeeting: 'Pending'
+          })),
+          pendingList: interventions.filter(i => i.status !== 'Closed').map(i => ({
+             _id: i._id,
+             studentId: i.studentId,
+             type: i.type,
+             remarks: i.remarks,
+             status: i.status,
+             actionPlan: i.actionPlan,
+             date: i.date
           }))
       },
       effectiveness: {
@@ -121,4 +130,30 @@ const getMentorAnalytics = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { getMyMentees, logIntervention, getStudentInterventions, getMentorAnalytics };
+// @desc    Update Intervention Status (e.g., mark as Closed)
+// @route   PUT /api/mentor/intervention/:id
+// @access  Private (Mentor)
+const updateInterventionStatus = asyncHandler(async (req, res) => {
+  const { status, remarks, actionPlan } = req.body;
+  const intervention = await Intervention.findById(req.params.id);
+
+  if (!intervention) {
+      res.status(404);
+      throw new Error("Intervention not found");
+  }
+
+  // Ensure the mentor owns this intervention
+  if (intervention.mentorId.toString() !== req.user._id.toString()) {
+      res.status(403);
+      throw new Error("Unauthorized to update this intervention");
+  }
+
+  if (status) intervention.status = status;
+  if (remarks) intervention.remarks = remarks;
+  if (actionPlan !== undefined) intervention.actionPlan = actionPlan;
+
+  await intervention.save();
+  res.json(intervention);
+});
+
+module.exports = { getMyMentees, logIntervention, getStudentInterventions, getMentorAnalytics, updateInterventionStatus };

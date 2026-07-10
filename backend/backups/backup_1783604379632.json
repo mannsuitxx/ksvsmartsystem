@@ -1,0 +1,1157 @@
+{
+  "timestamp": "2026-07-09T13:39:39.632Z",
+  "collections": {
+    "users": [
+      {
+        "_id": "6a4fa4844a1d6e403b772726",
+        "email": "admin@ksv.ac.in",
+        "passwordHash": "$2a$10$4gbA3mu7gopAglvuNAN35.pYLtSjWqF1CzZOOlI6/FeduaKGZtg6e",
+        "role": "admin",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:16.826Z",
+        "updatedAt": "2026-07-09T13:39:16.826Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4844a1d6e403b772729",
+        "email": "hod.ce@ksv.ac.in",
+        "passwordHash": "$2a$10$vSrXavjtm12bQMrqr7r6SuaebG6V/xM58qkPWwMWfGIROdQ1/Mdsm",
+        "role": "hod",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:16.986Z",
+        "updatedAt": "2026-07-09T13:39:16.986Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b77272b",
+        "email": "priya.shah@ksv.ac.in",
+        "passwordHash": "$2a$10$9sLGdE2CJ1BDt659x4ThCO.u3lXdR/o1//QffS70xOa75wTv22TzO",
+        "role": "mentor",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.122Z",
+        "updatedAt": "2026-07-09T13:39:17.122Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b77272d",
+        "email": "vivek.pandya@ksv.ac.in",
+        "passwordHash": "$2a$10$pRUKNwtgYpj8W43Tahk0rOBiM5iWfL7igB4QYrg1MKZd.gTv8A8Q6",
+        "role": "mentor",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.258Z",
+        "updatedAt": "2026-07-09T13:39:17.258Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b77272f",
+        "email": "amit.desai@ksv.ac.in",
+        "passwordHash": "$2a$10$J9qV5TLduhS9E4dLCFdZdemikH7W1UtOLok5fUxoHdwKGEth220NC",
+        "role": "faculty",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.394Z",
+        "updatedAt": "2026-07-09T13:39:17.394Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b772731",
+        "email": "sneha.mehta@ksv.ac.in",
+        "passwordHash": "$2a$10$UBVcJZdUqkqMyEoAU0MFp.cW.P36xay/IXfw7NuVlULWIjf.k3tdi",
+        "role": "faculty",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.530Z",
+        "updatedAt": "2026-07-09T13:39:17.530Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b772733",
+        "email": "rajesh.patel@ksv.ac.in",
+        "passwordHash": "$2a$10$SXk.TLzq9N8N6djUgfl8kO/j9WEsjRSk/TpXeoK27ykH/1Ucw8vJa",
+        "role": "faculty",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.668Z",
+        "updatedAt": "2026-07-09T13:39:17.668Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b772735",
+        "email": "harish.shah@ksv.ac.in",
+        "passwordHash": "$2a$10$LBZGYtMinF/mPaQG14sXfOnXRZQuFATBWsbo0BL/Xc.u1wrjIOB46",
+        "role": "faculty",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.813Z",
+        "updatedAt": "2026-07-09T13:39:17.813Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4854a1d6e403b772737",
+        "email": "sandeep.sharma@ksv.ac.in",
+        "passwordHash": "$2a$10$G2BUyvU8nUyg9Tz7r/VoU.4s3aL0OMI5Q6ZnxDsgW/9v7MGT.5QB6",
+        "role": "faculty",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:17.952Z",
+        "updatedAt": "2026-07-09T13:39:17.952Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772749",
+        "email": "rahul.patel@ksv.ac.in",
+        "passwordHash": "$2a$10$ujXpn2huPG7eyMa4GrnreuF9RJoYoJvpZfck1sMBsKV1UKXiQLl5m",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.125Z",
+        "updatedAt": "2026-07-09T13:39:18.125Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b77274d",
+        "email": "aayushi.joshi@ksv.ac.in",
+        "passwordHash": "$2a$10$zd/ZLDnab6Qx02ysLsLTqux8kyvkbq4CGvS3q3xubce.Ab6GghZ5u",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.272Z",
+        "updatedAt": "2026-07-09T13:39:18.272Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772751",
+        "email": "meet.shah@ksv.ac.in",
+        "passwordHash": "$2a$10$Uw6SMzsXb/.u0aSeDT3pKeeeDOjuUT83N08mw7C5SVmujLB2AGtg6",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.413Z",
+        "updatedAt": "2026-07-09T13:39:18.413Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772755",
+        "email": "nidhi.trivedi@ksv.ac.in",
+        "passwordHash": "$2a$10$9rpWHkyyTqhLk7p/KmVvEeiW8LrLULhNGdzH.IVAJgYerONwBYZDG",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.548Z",
+        "updatedAt": "2026-07-09T13:39:18.548Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772759",
+        "email": "karan.solanki@ksv.ac.in",
+        "passwordHash": "$2a$10$rj9GyVa6LXh37baIjYPwCOV1t3aMH/EBqfXDhH/AFriHV4feLSB4a",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.686Z",
+        "updatedAt": "2026-07-09T13:39:18.686Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b77275d",
+        "email": "parth.mehta@ksv.ac.in",
+        "passwordHash": "$2a$10$9EilKUSieFY3TH3.4N7u0OSeonh7NV2NkwNgBn0DjILzK6kbU5HPa",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.832Z",
+        "updatedAt": "2026-07-09T13:39:18.832Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772761",
+        "email": "dharti.vaghela@ksv.ac.in",
+        "passwordHash": "$2a$10$/.s8AKNJn7FHMIPBD6CrSOqABgOS.WZEI7kL9jLGyN2KZgjfXeYme",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.970Z",
+        "updatedAt": "2026-07-09T13:39:18.970Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b772765",
+        "email": "yash.rathod@ksv.ac.in",
+        "passwordHash": "$2a$10$vWpvJhiiXBgeCbTTqceZouK5vc9mRniITPRtQuMiKGvZJL5oUfFC.",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.110Z",
+        "updatedAt": "2026-07-09T13:39:19.110Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b772769",
+        "email": "tanvi.dave@ksv.ac.in",
+        "passwordHash": "$2a$10$RZT/DHwjiIbFR40Mw1vlPuW1PIqdYnK2F1mEcYIijgTadn2BhbzzK",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.253Z",
+        "updatedAt": "2026-07-09T13:39:19.253Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b77276d",
+        "email": "harsh.bhatt@ksv.ac.in",
+        "passwordHash": "$2a$10$SC/gd5akmBiDJxuHrZZN1.nnGWxcgRZazhijfQkSFEEVmhRijWGja",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.400Z",
+        "updatedAt": "2026-07-09T13:39:19.400Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b772771",
+        "email": "poonam.chauhan@ksv.ac.in",
+        "passwordHash": "$2a$10$geD0fF6JO0R18X70X5XU8.T9umN/T6feohWBlPht7xSpOvmRHnCj.",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.536Z",
+        "updatedAt": "2026-07-09T13:39:19.536Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b772775",
+        "email": "nirav.gandhi@ksv.ac.in",
+        "passwordHash": "$2a$10$O.uK6vsN8HkVpJxgDmn1cu1b85AGHxpu/694rmqgx8PuXFHAwzmZm",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.686Z",
+        "updatedAt": "2026-07-09T13:39:19.686Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b772779",
+        "email": "darshan.vyas@ksv.ac.in",
+        "passwordHash": "$2a$10$ZaBDJWlN0YwLnOrYpLyODOnSizyh99220rUccF9mjdQeNy0qwx87a",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.841Z",
+        "updatedAt": "2026-07-09T13:39:19.841Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4874a1d6e403b77277d",
+        "email": "riya.kapoor@ksv.ac.in",
+        "passwordHash": "$2a$10$A7laGQwPgSd4yQ8sNSa.n.t7v1OxaK5s0fgL06CgB2.vWN6k3f8me",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:19.999Z",
+        "updatedAt": "2026-07-09T13:39:19.999Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4884a1d6e403b772781",
+        "email": "dhruv.agarwal@ksv.ac.in",
+        "passwordHash": "$2a$10$l4s1pRF4XI2Veq4DObk/s.ARoBNEPH0mjWiXWph3Fqmjxxyh90tvq",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:20.256Z",
+        "updatedAt": "2026-07-09T13:39:20.256Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4884a1d6e403b772785",
+        "email": "simran.malhotra@ksv.ac.in",
+        "passwordHash": "$2a$10$kmJOeOrr6DftAVHqnpEFve6bqfKsXLo/VNkYco4Mx.b0iDSgPUx/G",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:20.493Z",
+        "updatedAt": "2026-07-09T13:39:20.493Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4884a1d6e403b772789",
+        "email": "preet.thakkar@ksv.ac.in",
+        "passwordHash": "$2a$10$DDZbO5RVD3aWESt6mV5taubAmNC79uegarulqu8yhSFh70byRWuo2",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:20.701Z",
+        "updatedAt": "2026-07-09T13:39:20.701Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4884a1d6e403b77278d",
+        "email": "aditya.kumar@ksv.ac.in",
+        "passwordHash": "$2a$10$vvjVeNU4QVozvm2gWasZB.jw8iZJKWZv235kW4ddsL6TYrS1OTZkC",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:20.907Z",
+        "updatedAt": "2026-07-09T13:39:20.907Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4894a1d6e403b772791",
+        "email": "nehal.desai@ksv.ac.in",
+        "passwordHash": "$2a$10$9n5Fl8U.uRr1ggzWxRT44usINgxUjk2Z2R6LHZpJ9WzH.8C94aPtK",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:21.054Z",
+        "updatedAt": "2026-07-09T13:39:21.054Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4894a1d6e403b772795",
+        "email": "raj.sharma@ksv.ac.in",
+        "passwordHash": "$2a$10$TQc6HuvVR6wzGdYf13u4dOTt0/YhtauefGugTqzyYhYhZoasYloni",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:21.193Z",
+        "updatedAt": "2026-07-09T13:39:21.193Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4894a1d6e403b772799",
+        "email": "bhavna.rao@ksv.ac.in",
+        "passwordHash": "$2a$10$7vajjg0ETL.dlI3Y7.NMmev1lNI6kFfY01kAMt54b8QNk7YPZH3Sq",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:21.334Z",
+        "updatedAt": "2026-07-09T13:39:21.334Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4894a1d6e403b77279d",
+        "email": "siddharth.nair@ksv.ac.in",
+        "passwordHash": "$2a$10$xrcMA9CyRBl/.fKJszg0/.LtywhYYxSWLScnsFJ56UXBr/NYl58iW",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:21.520Z",
+        "updatedAt": "2026-07-09T13:39:21.520Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa48a4a1d6e403b7727a3",
+        "email": "prachi.jain@ksv.ac.in",
+        "passwordHash": "$2a$10$qNCyfWYDNilGGQ5Z8DLeeeuAoUNLkV/uLhVxeDAPhfTS0QfEUISTe",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:22.032Z",
+        "updatedAt": "2026-07-09T13:39:22.032Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa48a4a1d6e403b7727ae",
+        "email": "akash.mishra@ksv.ac.in",
+        "passwordHash": "$2a$10$auT42VZv9BcKZPM/HWEa8.4Z4W8fp5bvDucHOQKu6tYXzwzhUT/o2",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:22.358Z",
+        "updatedAt": "2026-07-09T13:39:22.358Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa48a4a1d6e403b7727bb",
+        "email": "vijay.vaghela@ksv.ac.in",
+        "passwordHash": "$2a$10$UqqTqQtjuSN7RM17jkMrQulgNdlCYnx6mR1hE6In3p77PrcUW4SWu",
+        "role": "student",
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:22.690Z",
+        "updatedAt": "2026-07-09T13:39:22.690Z",
+        "__v": 0
+      }
+    ],
+    "students": [
+      {
+        "riskProfile": {
+          "score": 50,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Attendance (<75%)"
+          ]
+        },
+        "_id": "6a4fa4864a1d6e403b77274b",
+        "userId": "6a4fa4864a1d6e403b772749",
+        "enrollmentNumber": "KSV2023CE001",
+        "firstName": "Rahul",
+        "lastName": "Patel",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.rahul@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.268Z",
+        "updatedAt": "2026-07-09T13:39:18.268Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4864a1d6e403b77274f",
+        "userId": "6a4fa4864a1d6e403b77274d",
+        "enrollmentNumber": "KSV2023CE002",
+        "firstName": "Aayushi",
+        "lastName": "Joshi",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.aayushi@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.410Z",
+        "updatedAt": "2026-07-09T13:39:18.410Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa4864a1d6e403b772753",
+        "userId": "6a4fa4864a1d6e403b772751",
+        "enrollmentNumber": "KSV2023CE003",
+        "firstName": "Meet",
+        "lastName": "Shah",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.meet@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.546Z",
+        "updatedAt": "2026-07-09T13:39:18.546Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4864a1d6e403b772757",
+        "userId": "6a4fa4864a1d6e403b772755",
+        "enrollmentNumber": "KSV2023CE004",
+        "firstName": "Nidhi",
+        "lastName": "Trivedi",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.nidhi@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.682Z",
+        "updatedAt": "2026-07-09T13:39:18.682Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 30,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Marks (<40%)"
+          ]
+        },
+        "_id": "6a4fa4864a1d6e403b77275b",
+        "userId": "6a4fa4864a1d6e403b772759",
+        "enrollmentNumber": "KSV2023CE005",
+        "firstName": "Karan",
+        "lastName": "Solanki",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.karan@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.830Z",
+        "updatedAt": "2026-07-09T13:39:18.830Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 50,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Attendance (<75%)"
+          ]
+        },
+        "_id": "6a4fa4864a1d6e403b77275f",
+        "userId": "6a4fa4864a1d6e403b77275d",
+        "enrollmentNumber": "KSV2023CE006",
+        "firstName": "Parth",
+        "lastName": "Mehta",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "B",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.parth@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:18.967Z",
+        "updatedAt": "2026-07-09T13:39:18.967Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4874a1d6e403b772763",
+        "userId": "6a4fa4864a1d6e403b772761",
+        "enrollmentNumber": "KSV2023CE007",
+        "firstName": "Dharti",
+        "lastName": "Vaghela",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "B",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.dharti@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.106Z",
+        "updatedAt": "2026-07-09T13:39:19.106Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa4874a1d6e403b772767",
+        "userId": "6a4fa4874a1d6e403b772765",
+        "enrollmentNumber": "KSV2023CE008",
+        "firstName": "Yash",
+        "lastName": "Rathod",
+        "department": "Computer Engineering",
+        "currentSemester": 5,
+        "division": "B",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.yash@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.250Z",
+        "updatedAt": "2026-07-09T13:39:19.250Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4874a1d6e403b77276b",
+        "userId": "6a4fa4874a1d6e403b772769",
+        "enrollmentNumber": "KSV2024CE001",
+        "firstName": "Tanvi",
+        "lastName": "Dave",
+        "department": "Computer Engineering",
+        "currentSemester": 3,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.tanvi@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.397Z",
+        "updatedAt": "2026-07-09T13:39:19.397Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa4874a1d6e403b77276f",
+        "userId": "6a4fa4874a1d6e403b77276d",
+        "enrollmentNumber": "KSV2024CE002",
+        "firstName": "Harsh",
+        "lastName": "Bhatt",
+        "department": "Computer Engineering",
+        "currentSemester": 3,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.harsh@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.534Z",
+        "updatedAt": "2026-07-09T13:39:19.534Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 30,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Marks (<40%)"
+          ]
+        },
+        "_id": "6a4fa4874a1d6e403b772773",
+        "userId": "6a4fa4874a1d6e403b772771",
+        "enrollmentNumber": "KSV2024CE003",
+        "firstName": "Poonam",
+        "lastName": "Chauhan",
+        "department": "Computer Engineering",
+        "currentSemester": 3,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.poonam@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.682Z",
+        "updatedAt": "2026-07-09T13:39:19.682Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4874a1d6e403b772777",
+        "userId": "6a4fa4874a1d6e403b772775",
+        "enrollmentNumber": "KSV2024CE004",
+        "firstName": "Nirav",
+        "lastName": "Gandhi",
+        "department": "Computer Engineering",
+        "currentSemester": 3,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.nirav@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.837Z",
+        "updatedAt": "2026-07-09T13:39:19.837Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4874a1d6e403b77277b",
+        "userId": "6a4fa4874a1d6e403b772779",
+        "enrollmentNumber": "KSV2024CE005",
+        "firstName": "Darshan",
+        "lastName": "Vyas",
+        "department": "Computer Engineering",
+        "currentSemester": 3,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.darshan@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:19.996Z",
+        "updatedAt": "2026-07-09T13:39:19.996Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4884a1d6e403b77277f",
+        "userId": "6a4fa4874a1d6e403b77277d",
+        "enrollmentNumber": "KSV2023IT001",
+        "firstName": "Riya",
+        "lastName": "Kapoor",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.riya@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:20.224Z",
+        "updatedAt": "2026-07-09T13:39:20.224Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 50,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Attendance (<75%)"
+          ]
+        },
+        "_id": "6a4fa4884a1d6e403b772783",
+        "userId": "6a4fa4884a1d6e403b772781",
+        "enrollmentNumber": "KSV2023IT002",
+        "firstName": "Dhruv",
+        "lastName": "Agarwal",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.dhruv@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:20.485Z",
+        "updatedAt": "2026-07-09T13:39:20.485Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa4884a1d6e403b772787",
+        "userId": "6a4fa4884a1d6e403b772785",
+        "enrollmentNumber": "KSV2023IT003",
+        "firstName": "Simran",
+        "lastName": "Malhotra",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.simran@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:20.694Z",
+        "updatedAt": "2026-07-09T13:39:20.694Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4884a1d6e403b77278b",
+        "userId": "6a4fa4884a1d6e403b772789",
+        "enrollmentNumber": "KSV2023IT004",
+        "firstName": "Preet",
+        "lastName": "Thakkar",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.preet@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:20.905Z",
+        "updatedAt": "2026-07-09T13:39:20.905Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 30,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Marks (<40%)"
+          ]
+        },
+        "_id": "6a4fa4894a1d6e403b77278f",
+        "userId": "6a4fa4884a1d6e403b77278d",
+        "enrollmentNumber": "KSV2023IT005",
+        "firstName": "Aditya",
+        "lastName": "Kumar",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.aditya@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:21.052Z",
+        "updatedAt": "2026-07-09T13:39:21.052Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4894a1d6e403b772793",
+        "userId": "6a4fa4894a1d6e403b772791",
+        "enrollmentNumber": "KSV2023IT006",
+        "firstName": "Nehal",
+        "lastName": "Desai",
+        "department": "Information Technology",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272b",
+        "parentEmail": "parent.nehal@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:21.190Z",
+        "updatedAt": "2026-07-09T13:39:21.190Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa4894a1d6e403b772797",
+        "userId": "6a4fa4894a1d6e403b772795",
+        "enrollmentNumber": "KSV2023ME001",
+        "firstName": "Raj",
+        "lastName": "Sharma",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.raj@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:21.331Z",
+        "updatedAt": "2026-07-09T13:39:21.331Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa4894a1d6e403b77279b",
+        "userId": "6a4fa4894a1d6e403b772799",
+        "enrollmentNumber": "KSV2023ME002",
+        "firstName": "Bhavna",
+        "lastName": "Rao",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.bhavna@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:21.516Z",
+        "updatedAt": "2026-07-09T13:39:21.516Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 50,
+          "level": "Moderate Risk",
+          "reasons": [
+            "Low Attendance (<75%)"
+          ]
+        },
+        "_id": "6a4fa48a4a1d6e403b7727a0",
+        "userId": "6a4fa4894a1d6e403b77279d",
+        "enrollmentNumber": "KSV2023ME003",
+        "firstName": "Siddharth",
+        "lastName": "Nair",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.siddharth@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:22.023Z",
+        "updatedAt": "2026-07-09T13:39:22.023Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa48a4a1d6e403b7727ab",
+        "userId": "6a4fa48a4a1d6e403b7727a3",
+        "enrollmentNumber": "KSV2023ME004",
+        "firstName": "Prachi",
+        "lastName": "Jain",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.prachi@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:22.330Z",
+        "updatedAt": "2026-07-09T13:39:22.330Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 80,
+          "level": "High Risk",
+          "reasons": [
+            "Low Attendance (<75%)",
+            "Low Marks (<40%)",
+            "CRITICAL: Low Attendance & Low Marks"
+          ]
+        },
+        "_id": "6a4fa48a4a1d6e403b7727b7",
+        "userId": "6a4fa48a4a1d6e403b7727ae",
+        "enrollmentNumber": "KSV2023ME005",
+        "firstName": "Akash",
+        "lastName": "Mishra",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.akash@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:22.659Z",
+        "updatedAt": "2026-07-09T13:39:22.659Z",
+        "__v": 0
+      },
+      {
+        "riskProfile": {
+          "score": 0,
+          "level": "Safe",
+          "reasons": []
+        },
+        "_id": "6a4fa48b4a1d6e403b7727c1",
+        "userId": "6a4fa48a4a1d6e403b7727bb",
+        "enrollmentNumber": "KSV2023ME006",
+        "firstName": "Vijay",
+        "lastName": "Vaghela",
+        "department": "Mechanical Engineering",
+        "currentSemester": 5,
+        "division": "A",
+        "mentorId": "6a4fa4854a1d6e403b77272d",
+        "parentEmail": "parent.vijay@gmail.com",
+        "profilePicture": null,
+        "createdAt": "2026-07-09T13:39:23.016Z",
+        "updatedAt": "2026-07-09T13:39:23.016Z",
+        "__v": 0
+      }
+    ],
+    "faculty": [
+      {
+        "_id": "6a4fa4864a1d6e403b772739",
+        "userId": "6a4fa4844a1d6e403b772729",
+        "firstName": "Dr. Chirag",
+        "lastName": "Trivedi",
+        "employeeId": "KSV-EMP-001",
+        "department": "Computer Engineering",
+        "designation": "Professor & HOD",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.096Z",
+        "updatedAt": "2026-07-09T13:39:18.096Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b77273b",
+        "userId": "6a4fa4854a1d6e403b77272b",
+        "firstName": "Priya",
+        "lastName": "Shah",
+        "employeeId": "KSV-EMP-002",
+        "department": "Computer Engineering",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": true,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.099Z",
+        "updatedAt": "2026-07-09T13:39:18.099Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b77273d",
+        "userId": "6a4fa4854a1d6e403b77272d",
+        "firstName": "Vivek",
+        "lastName": "Pandya",
+        "employeeId": "KSV-EMP-003",
+        "department": "Computer Engineering",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": true,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.103Z",
+        "updatedAt": "2026-07-09T13:39:18.103Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b77273f",
+        "userId": "6a4fa4854a1d6e403b77272f",
+        "firstName": "Amit",
+        "lastName": "Desai",
+        "employeeId": "KSV-EMP-004",
+        "department": "Computer Engineering",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.107Z",
+        "updatedAt": "2026-07-09T13:39:18.107Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772741",
+        "userId": "6a4fa4854a1d6e403b772731",
+        "firstName": "Sneha",
+        "lastName": "Mehta",
+        "employeeId": "KSV-EMP-005",
+        "department": "Information Technology",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.110Z",
+        "updatedAt": "2026-07-09T13:39:18.110Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772743",
+        "userId": "6a4fa4854a1d6e403b772733",
+        "firstName": "Rajesh",
+        "lastName": "Patel",
+        "employeeId": "KSV-EMP-006",
+        "department": "Mechanical Engineering",
+        "designation": "Associate Professor",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.114Z",
+        "updatedAt": "2026-07-09T13:39:18.114Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772745",
+        "userId": "6a4fa4854a1d6e403b772735",
+        "firstName": "Harish",
+        "lastName": "Shah",
+        "employeeId": "KSV-EMP-007",
+        "department": "Computer Engineering",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.117Z",
+        "updatedAt": "2026-07-09T13:39:18.117Z",
+        "__v": 0
+      },
+      {
+        "_id": "6a4fa4864a1d6e403b772747",
+        "userId": "6a4fa4854a1d6e403b772737",
+        "firstName": "Sandeep",
+        "lastName": "Sharma",
+        "employeeId": "KSV-EMP-008",
+        "department": "Mechanical Engineering",
+        "designation": "Assistant Professor",
+        "assignedSubjects": [],
+        "isMentor": false,
+        "isActive": true,
+        "createdAt": "2026-07-09T13:39:18.121Z",
+        "updatedAt": "2026-07-09T13:39:18.121Z",
+        "__v": 0
+      }
+    ],
+    "calendar": [
+      {
+        "_id": "6a4fa48c4a1d6e403b773309",
+        "title": "Odd Semester 2026 Academic Registration",
+        "type": "Event",
+        "startDate": "2026-06-15T00:00:00.000Z",
+        "endDate": "2026-06-17T00:00:00.000Z",
+        "description": "Enrollment and semester registration for all students.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.643Z",
+        "updatedAt": "2026-07-09T13:39:24.643Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330a",
+        "title": "Commencement of Odd Semester Classes",
+        "type": "Event",
+        "startDate": "2026-06-22T00:00:00.000Z",
+        "endDate": "2026-06-22T00:00:00.000Z",
+        "description": "Official beginning of regular classroom lectures.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.643Z",
+        "updatedAt": "2026-07-09T13:39:24.643Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330b",
+        "title": "Independence Day Celebrations",
+        "type": "Holiday",
+        "startDate": "2026-08-15T00:00:00.000Z",
+        "endDate": "2026-08-15T00:00:00.000Z",
+        "description": "Independence Day Holiday at KSV Gandhinagar campus.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.644Z",
+        "updatedAt": "2026-07-09T13:39:24.644Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330c",
+        "title": "Internal Quiz - I",
+        "type": "Exam",
+        "startDate": "2026-08-24T00:00:00.000Z",
+        "endDate": "2026-08-29T00:00:00.000Z",
+        "description": "Continuous internal assessment (Quiz 1) for all courses.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.644Z",
+        "updatedAt": "2026-07-09T13:39:24.644Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330d",
+        "title": "Engineer's Day Tech-Exhibit",
+        "type": "Event",
+        "startDate": "2026-09-15T00:00:00.000Z",
+        "endDate": "2026-09-15T00:00:00.000Z",
+        "description": "Department project exhibition and paper presentation.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330e",
+        "title": "Mid-Sem Examinations",
+        "type": "Exam",
+        "startDate": "2026-09-28T00:00:00.000Z",
+        "endDate": "2026-10-06T00:00:00.000Z",
+        "description": "Odd Semester Mid-Sem examinations (30 Marks).",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b77330f",
+        "title": "Navratri Festive Vacation",
+        "type": "Holiday",
+        "startDate": "2026-10-18T00:00:00.000Z",
+        "endDate": "2026-10-21T00:00:00.000Z",
+        "description": "Navratri break for GTU/KSV students.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b773310",
+        "title": "Attendance Freeze Date",
+        "type": "Deadline",
+        "startDate": "2026-11-10T00:00:00.000Z",
+        "endDate": "2026-11-10T00:00:00.000Z",
+        "description": "Final attendance computation for detention criteria.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b773311",
+        "title": "Last Date of Medical Leave Submission",
+        "type": "Deadline",
+        "startDate": "2026-11-12T00:00:00.000Z",
+        "endDate": "2026-11-12T00:00:00.000Z",
+        "description": "Submit medical certificates for attendance exemption.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      },
+      {
+        "_id": "6a4fa48c4a1d6e403b773312",
+        "title": "End-Sem Theory Examinations",
+        "type": "Exam",
+        "startDate": "2026-11-23T00:00:00.000Z",
+        "endDate": "2026-12-11T00:00:00.000Z",
+        "description": "University final theory examinations.",
+        "isPublic": true,
+        "__v": 0,
+        "createdAt": "2026-07-09T13:39:24.650Z",
+        "updatedAt": "2026-07-09T13:39:24.650Z"
+      }
+    ],
+    "config": []
+  }
+}

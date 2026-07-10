@@ -3,6 +3,7 @@ const Student = require('../models/Student');
 const LectureAttendance = require('../models/LectureAttendance');
 const InternalMarks = require('../models/InternalMarks');
 const Intervention = require('../models/Intervention');
+const { calculateRisk } = require('../utils/riskCalculator');
 
 const getStudentDashboard = asyncHandler(async (req, res) => {
   const student = await Student.findOne({ userId: req.user._id });
@@ -39,26 +40,7 @@ const getStudentDashboard = asyncHandler(async (req, res) => {
   });
 
   // 3. Strict Risk Logic
-  // Rule: IF attendance < 75 AND marks < 40 → HIGH RISK
-  let riskLevel = 'Safe';
-  let riskScore = 0;
-  const factors = [];
-
-  if (overallAttendance < 75) {
-    factors.push('Low Attendance (<75%)');
-    riskScore += 50;
-  }
-  if (lowMarksFlag) {
-    factors.push('Low Marks (<40%)');
-    riskScore += 30;
-  }
-
-  if (overallAttendance < 75 && lowMarksFlag) {
-    riskLevel = 'High Risk';
-    factors.push('CRITICAL: Low Attendance & Low Marks');
-  } else if (overallAttendance < 75 || lowMarksFlag) {
-    riskLevel = 'Moderate Risk';
-  }
+  const { score: riskScore, level: riskLevel, reasons: factors } = calculateRisk(overallAttendance, lowMarksFlag);
 
   res.json({
     profile: {
@@ -133,25 +115,7 @@ const simulateRisk = asyncHandler(async (req, res) => {
   const attPct = (lecturesPresent / lecturesTotal) * 100;
   const marksPct = (marksObtained / maxMarks) * 100;
 
-  let riskScore = 0;
-  let factors = [];
-  let level = 'Safe';
-
-  if (attPct < 75) {
-      riskScore += 50;
-      factors.push('Low Attendance (<75%)');
-  }
-  if (marksPct < 40) {
-      riskScore += 30;
-      factors.push('Low Marks (<40%)');
-  }
-
-  if (attPct < 75 && marksPct < 40) {
-      level = 'High Risk';
-      factors.push('CRITICAL: Both thresholds breached');
-  } else if (attPct < 75 || marksPct < 40) {
-      level = 'Moderate Risk';
-  }
+  const { score: riskScore, level, reasons: factors } = calculateRisk(attPct, marksPct < 40);
 
   // Simple SPI Projection Logic
   // Base SPI on marks percentage (scale 0-10)

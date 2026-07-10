@@ -5,6 +5,7 @@ const studentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    index: true,
   },
   enrollmentNumber: {
     type: String,
@@ -22,10 +23,12 @@ const studentSchema = mongoose.Schema({
   department: {
     type: String,
     required: true,
+    index: true,
   },
   currentSemester: {
     type: Number,
     required: true,
+    index: true,
   },
   division: {
     type: String,
@@ -34,6 +37,7 @@ const studentSchema = mongoose.Schema({
   mentorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Refers to a Faculty user
+    index: true,
   },
   parentEmail: {
     type: String,
@@ -45,7 +49,7 @@ const studentSchema = mongoose.Schema({
   },
   riskProfile: {
     score: { type: Number, default: 0 },
-    level: { type: String, enum: ['Safe', 'Moderate', 'Critical'], default: 'Safe' },
+    level: { type: String, enum: ['Safe', 'Moderate', 'Critical', 'Moderate Risk', 'High Risk'], default: 'Safe' },
     reasons: [String],
   }
 }, {

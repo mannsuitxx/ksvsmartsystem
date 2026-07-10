@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
@@ -53,71 +54,81 @@ import ClassUpdateLogs from './pages/ClassUpdateLogs';
 import AdminResourceMgmt from './pages/admin/AdminResourceMgmt';
 import EmailLogs from './pages/admin/EmailLogs';
 
+function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        
+        {/* Student Routes */}
+        <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute>} />
+        <Route path="/student/simulator" element={<PrivateRoute><WhatIfSimulator /></PrivateRoute>} />
+        <Route path="/student/profile" element={<PrivateRoute><StudentMyProfile /></PrivateRoute>} />
+        <Route path="/student/achievements" element={<PrivateRoute><StudentAchievements /></PrivateRoute>} />
+        <Route path="/student/resources" element={<PrivateRoute><StudentResources /></PrivateRoute>} />
+        <Route path="/student/leaves" element={<PrivateRoute><StudentMedicalLeave /></PrivateRoute>} />
+        <Route path="/student/planner" element={<PrivateRoute><StudentAcademicPlanner /></PrivateRoute>} />
+        <Route path="/student/attendance-recovery" element={<PrivateRoute><AttendanceWarning /></PrivateRoute>} />
+        <Route path="/student/backlog-risk" element={<PrivateRoute><BacklogRiskAnalyzer /></PrivateRoute>} />
+        <Route path="/student/goals" element={<PrivateRoute><StudentGoalSetting /></PrivateRoute>} />
+        <Route path="/student/mentorship-log" element={<PrivateRoute><MentorInteractionHistory /></PrivateRoute>} />
+        
+        {/* Faculty Routes */}
+        <Route path="/faculty/dashboard" element={<PrivateRoute><FacultyDashboardHome /></PrivateRoute>} />
+        <Route path="/faculty/students" element={<PrivateRoute><FacultyStudentList /></PrivateRoute>} />
+        <Route path="/faculty/directory" element={<PrivateRoute><StudentDirectory /></PrivateRoute>} />
+        <Route path="/faculty/student/:id" element={<PrivateRoute><StudentProfileView /></PrivateRoute>} />
+        <Route path="/faculty/history" element={<PrivateRoute><FacultyHistory /></PrivateRoute>} />
+        <Route path="/faculty/attendance" element={<PrivateRoute><FacultyAttendance /></PrivateRoute>} />
+        <Route path="/faculty/marks" element={<PrivateRoute><FacultyMarks /></PrivateRoute>} />
+        <Route path="/faculty/class-updates" element={<PrivateRoute><FacultyClassUpdate /></PrivateRoute>} />
+        <Route path="/faculty/engagement" element={<PrivateRoute><LowEngagementDetector /></PrivateRoute>} />
+        <Route path="/faculty/class-health" element={<PrivateRoute><ClassHealthReport /></PrivateRoute>} />
+        <Route path="/faculty/assessment-analysis" element={<PrivateRoute><AssessmentDifficultyAnalyzer /></PrivateRoute>} />
+
+        {/* Mentor Routes */}
+        <Route path="/mentor/dashboard" element={<PrivateRoute><MentorDashboard /></PrivateRoute>} />
+        <Route path="/mentor/email" element={<PrivateRoute><MentorEmailSystem /></PrivateRoute>} />
+        <Route path="/mentor/achievements" element={<PrivateRoute><MentorPendingAchievements /></PrivateRoute>} />
+        <Route path="/mentor/leaves" element={<PrivateRoute><MentorMedicalLeaves /></PrivateRoute>} />
+        <Route path="/mentor/workload" element={<PrivateRoute><MentorWorkloadDashboard /></PrivateRoute>} />
+        <Route path="/mentor/effectiveness" element={<PrivateRoute><InterventionEffectivenessTracker /></PrivateRoute>} />
+        
+        {/* HOD Routes */}
+        <Route path="/hod/dashboard" element={<PrivateRoute><HODDashboard /></PrivateRoute>} />
+        <Route path="/hod/failures" element={<PrivateRoute><SubjectFailureAnalysis /></PrivateRoute>} />
+        <Route path="/hod/faculty-impact" element={<PrivateRoute><FacultyImpactReport /></PrivateRoute>} />
+        <Route path="/hod/sem-comparison" element={<PrivateRoute><SemesterComparison /></PrivateRoute>} />
+        <Route path="/hod/early-detention" element={<PrivateRoute><EarlyDetentionPrediction /></PrivateRoute>} />
+        <Route path="/hod/compliance" element={<PrivateRoute><AuditCompliance /></PrivateRoute>} />
+        <Route path="/hod/class-logs" element={<PrivateRoute><ClassUpdateLogs /></PrivateRoute>} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+        <Route path="/admin/faculty" element={<PrivateRoute><FacultyManagement /></PrivateRoute>} />
+        <Route path="/admin/mentors" element={<PrivateRoute><MentorManagement /></PrivateRoute>} />
+        <Route path="/admin/academics" element={<PrivateRoute><DepartmentSetup /></PrivateRoute>} />
+        <Route path="/admin/calendar" element={<PrivateRoute><AcademicCalendarManager /></PrivateRoute>} />
+        <Route path="/admin/resources" element={<PrivateRoute><AdminResourceMgmt /></PrivateRoute>} />
+        <Route path="/admin/config" element={<PrivateRoute><SystemConfigPage /></PrivateRoute>} />
+        <Route path="/admin/data" element={<PrivateRoute><DataImportExport /></PrivateRoute>} />
+        <Route path="/admin/email-logs" element={<PrivateRoute><EmailLogs /></PrivateRoute>} />
+        <Route path="/admin/logs" element={<PrivateRoute><AuditLogs /></PrivateRoute>} />
+        
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          
-          {/* Student Routes */}
-          <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute>} />
-          <Route path="/student/simulator" element={<PrivateRoute><WhatIfSimulator /></PrivateRoute>} />
-          <Route path="/student/profile" element={<PrivateRoute><StudentMyProfile /></PrivateRoute>} />
-          <Route path="/student/achievements" element={<PrivateRoute><StudentAchievements /></PrivateRoute>} />
-          <Route path="/student/resources" element={<PrivateRoute><StudentResources /></PrivateRoute>} />
-          <Route path="/student/leaves" element={<PrivateRoute><StudentMedicalLeave /></PrivateRoute>} />
-          <Route path="/student/planner" element={<PrivateRoute><StudentAcademicPlanner /></PrivateRoute>} />
-          <Route path="/student/attendance-recovery" element={<PrivateRoute><AttendanceWarning /></PrivateRoute>} />
-          <Route path="/student/backlog-risk" element={<PrivateRoute><BacklogRiskAnalyzer /></PrivateRoute>} />
-          <Route path="/student/goals" element={<PrivateRoute><StudentGoalSetting /></PrivateRoute>} />
-          <Route path="/student/mentorship-log" element={<PrivateRoute><MentorInteractionHistory /></PrivateRoute>} />
-          
-          {/* Faculty Routes */}
-          <Route path="/faculty/dashboard" element={<PrivateRoute><FacultyDashboardHome /></PrivateRoute>} />
-          <Route path="/faculty/students" element={<PrivateRoute><FacultyStudentList /></PrivateRoute>} />
-          <Route path="/faculty/directory" element={<PrivateRoute><StudentDirectory /></PrivateRoute>} />
-          <Route path="/faculty/student/:id" element={<PrivateRoute><StudentProfileView /></PrivateRoute>} />
-          <Route path="/faculty/history" element={<PrivateRoute><FacultyHistory /></PrivateRoute>} />
-          <Route path="/faculty/attendance" element={<PrivateRoute><FacultyAttendance /></PrivateRoute>} />
-          <Route path="/faculty/marks" element={<PrivateRoute><FacultyMarks /></PrivateRoute>} />
-          <Route path="/faculty/class-updates" element={<PrivateRoute><FacultyClassUpdate /></PrivateRoute>} />
-          <Route path="/faculty/engagement" element={<PrivateRoute><LowEngagementDetector /></PrivateRoute>} />
-          <Route path="/faculty/class-health" element={<PrivateRoute><ClassHealthReport /></PrivateRoute>} />
-          <Route path="/faculty/assessment-analysis" element={<PrivateRoute><AssessmentDifficultyAnalyzer /></PrivateRoute>} />
-
-          {/* Mentor Routes */}
-          <Route path="/mentor/dashboard" element={<PrivateRoute><MentorDashboard /></PrivateRoute>} />
-          <Route path="/mentor/email" element={<PrivateRoute><MentorEmailSystem /></PrivateRoute>} />
-          <Route path="/mentor/achievements" element={<PrivateRoute><MentorPendingAchievements /></PrivateRoute>} />
-          <Route path="/mentor/leaves" element={<PrivateRoute><MentorMedicalLeaves /></PrivateRoute>} />
-          <Route path="/mentor/workload" element={<PrivateRoute><MentorWorkloadDashboard /></PrivateRoute>} />
-          <Route path="/mentor/effectiveness" element={<PrivateRoute><InterventionEffectivenessTracker /></PrivateRoute>} />
-          
-          {/* HOD Routes */}
-          <Route path="/hod/dashboard" element={<PrivateRoute><HODDashboard /></PrivateRoute>} />
-          <Route path="/hod/failures" element={<PrivateRoute><SubjectFailureAnalysis /></PrivateRoute>} />
-          <Route path="/hod/faculty-impact" element={<PrivateRoute><FacultyImpactReport /></PrivateRoute>} />
-          <Route path="/hod/sem-comparison" element={<PrivateRoute><SemesterComparison /></PrivateRoute>} />
-          <Route path="/hod/early-detention" element={<PrivateRoute><EarlyDetentionPrediction /></PrivateRoute>} />
-          <Route path="/hod/compliance" element={<PrivateRoute><AuditCompliance /></PrivateRoute>} />
-          <Route path="/hod/class-logs" element={<PrivateRoute><ClassUpdateLogs /></PrivateRoute>} />
-
-          {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
-          <Route path="/admin/faculty" element={<PrivateRoute><FacultyManagement /></PrivateRoute>} />
-          <Route path="/admin/mentors" element={<PrivateRoute><MentorManagement /></PrivateRoute>} />
-          <Route path="/admin/academics" element={<PrivateRoute><DepartmentSetup /></PrivateRoute>} />
-          <Route path="/admin/calendar" element={<PrivateRoute><AcademicCalendarManager /></PrivateRoute>} />
-          <Route path="/admin/resources" element={<PrivateRoute><AdminResourceMgmt /></PrivateRoute>} />
-          <Route path="/admin/config" element={<PrivateRoute><SystemConfigPage /></PrivateRoute>} />
-          <Route path="/admin/data" element={<PrivateRoute><DataImportExport /></PrivateRoute>} />
-          <Route path="/admin/email-logs" element={<PrivateRoute><EmailLogs /></PrivateRoute>} />
-          <Route path="/admin/logs" element={<PrivateRoute><AuditLogs /></PrivateRoute>} />
-          
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+        <AppRoutes />
       </Router>
     </AuthProvider>
   );

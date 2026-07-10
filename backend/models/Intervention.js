@@ -5,15 +5,17 @@ const interventionSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
     required: true,
+    index: true,
   },
   mentorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    index: true,
   },
   type: {
     type: String,
-    enum: ['Meeting', 'Call', 'Email', 'Other', 'Nudge'],
+    enum: ['Meeting', 'Call', 'Email', 'Other', 'Nudge', 'Counseling', 'Parent Meeting', 'Remedial Class', 'Performance Review', 'Academic Warning'],
     required: true,
   },
   date: {

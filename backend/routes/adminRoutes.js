@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { 
-    getSystemStats, getAllUsers, deleteUser, createUser, updateUserRole,
+    getSystemStats, getAllUsers, deleteUser, createUser, updateUserRole, toggleUserStatus,
     addFacultyProfile, getAllFaculty,
     assignMentor,
     createDepartment, getDepartments, createSubject, getSubjects,
     addCalendarEvent, getCalendarEvents,
     updateSystemConfig, getSystemConfig,
-    resetSemester, downloadSystemLogs
+    resetSemester, downloadSystemLogs,
+    triggerBackup, getBackupStatus
 } = require('../controllers/adminController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -18,6 +19,7 @@ router.get('/stats', getSystemStats);
 router.get('/users', getAllUsers);
 router.post('/users', createUser);
 router.put('/users/:id/role', updateUserRole);
+router.put('/users/:id/status', toggleUserStatus);
 router.delete('/users/:id', deleteUser);
 
 // Faculty & Mentor
@@ -41,5 +43,7 @@ router.get('/config', getSystemConfig);
 router.post('/system/reset-semester', resetSemester);
 router.get('/system/logs', downloadSystemLogs);
 router.post('/system/trigger-reports', require('../controllers/adminController').triggerMonthlyReports);
+router.post('/system/backup', triggerBackup);
+router.get('/system/backup/status', getBackupStatus);
 
 module.exports = router;

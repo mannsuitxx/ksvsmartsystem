@@ -25,8 +25,8 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="container d-flex justify-content-center align-items-center vh-100 bg-light">
-            <div className="card shadow border-0 p-4" style={{ maxWidth: '400px', width: '100%' }}>
+        <div className="container-fluid d-flex justify-content-center align-items-center vh-100 login-bg">
+            <div className="card shadow-lg border-0 p-4 animate-fade-in" style={{ maxWidth: '450px', width: '100%', borderRadius: '24px' }}>
                 <h4 className="fw-bold text-center mb-3">Forgot Password</h4>
                 <p className="text-muted text-center small mb-4">Enter your registered email to receive a temporary password.</p>
                 

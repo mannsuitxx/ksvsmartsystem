@@ -4,6 +4,7 @@ const LectureAttendance = require('../models/LectureAttendance');
 const InternalMarks = require('../models/InternalMarks');
 const { sendEmail } = require('./emailService');
 const EmailLog = require('../models/EmailLog');
+const { calculateRisk } = require('./riskCalculator');
 
 const generateMonthlyReports = async () => {
     console.log('Running Monthly Student Statistics Job...');
@@ -41,24 +42,11 @@ const generateMonthlyReports = async () => {
                 const marksPercentage = totalMax > 0 ? ((totalObtained / totalMax) * 100).toFixed(2) : 0;
 
                 // --- RECALCULATE RISK ---
-                let calculatedRiskLevel = 'Safe';
-                let calculatedRiskScore = 0;
-                let riskFactors = [];
-
-                if (attendancePercentage < 75) {
-                    calculatedRiskScore += 50;
-                    riskFactors.push('Low Attendance (<75%)');
-                }
-                if (marksPercentage < 40) {
-                    calculatedRiskScore += 30;
-                    riskFactors.push('Low Marks (<40%)');
-                }
-
-                if (attendancePercentage < 75 && marksPercentage < 40) {
-                    calculatedRiskLevel = 'High Risk'; // Or 'Critical'
-                } else if (attendancePercentage < 75 || marksPercentage < 40) {
-                    calculatedRiskLevel = 'Moderate Risk';
-                }
+                const hasLowMarks = parseFloat(marksPercentage) < 40;
+                const { score: calculatedRiskScore, level: calculatedRiskLevel, reasons: riskFactors } = calculateRisk(
+                    parseFloat(attendancePercentage),
+                    hasLowMarks
+                );
 
                 // Update Student Risk Profile if changed
                 if (student.riskProfile?.level !== calculatedRiskLevel) {

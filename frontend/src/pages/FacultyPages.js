@@ -37,16 +37,26 @@ export const FacultyDashboardHome = () => {
                     if (day >= 1 && day <= 6) weekCounts[day - 1]++;
                 });
 
-                setStats({ 
+                const newStats = { 
                     students: studentsRes.data.length, 
                     lectures: historyRes.data.length,
                     riskDist: [safe, mod, high],
                     weeklyActivity: weekCounts
+                };
+
+                setStats(prev => {
+                    if (prev.students === newStats.students &&
+                        prev.lectures === newStats.lectures &&
+                        JSON.stringify(prev.riskDist) === JSON.stringify(newStats.riskDist) &&
+                        JSON.stringify(prev.weeklyActivity) === JSON.stringify(newStats.weeklyActivity)) {
+                        return prev; // skip state change & avoid chart re-animation
+                    }
+                    return newStats;
                 });
              } catch (e) { console.error(e); }
         };
         fetchStats();
-        const interval = setInterval(fetchStats, 10000);
+        const interval = setInterval(fetchStats, 60000); // Poll every 60s silently
         return () => clearInterval(interval);
     }, []);
 

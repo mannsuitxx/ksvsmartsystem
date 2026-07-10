@@ -1,410 +1,196 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import autoceptLogo from '../assets/autocept.jpeg';
 
 const Sidebar = ({ role, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path ? 'active bg-primary text-white' : 'text-dark';
+  const isActive = (path) => location.pathname === path ? 'active' : '';
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: { transition: { staggerChildren: 0.03, delayChildren: 0.1 } },
+  };
+
+  const NavItem = ({ path, label, onClick }) => (
+    <motion.li className="nav-item mb-2" variants={itemVariants}>
+      <button
+        onClick={() => { navigate(path); if (onClose) onClose(); }}
+        className={`nav-link w-100 text-start ${isActive(path)}`}
+      >
+        {label}
+      </button>
+    </motion.li>
+  );
 
   return (
-    <div className="bg-white border-end h-100 d-flex flex-column p-3" style={{ minHeight: '100vh' }}>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h5 className="text-primary fw-bold mb-0 mx-auto">KSV System</h5>
-        <button type="button" className="btn-close d-md-none" aria-label="Close" onClick={onClose}></button>
+    <motion.div
+      className="sidebar-container h-100 d-flex flex-column p-3"
+      style={{ minHeight: '100vh' }}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="d-flex flex-column align-items-start mb-4 w-100 position-relative px-2">
+        <div className="d-flex justify-content-between align-items-center w-100">
+          <motion.h5
+            className="mb-0 text-start"
+            style={{ 
+              fontFamily: 'var(--ksv-font-heading)',
+              fontWeight: 800,
+              fontSize: '1.2rem',
+              letterSpacing: '0.08em',
+              background: 'linear-gradient(135deg, #1d1d1f 30%, #515154 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textTransform: 'uppercase'
+            }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.4 }}
+          >
+            KSV SMART SYSTEM
+          </motion.h5>
+          <button type="button" className="btn-close d-md-none position-absolute end-0 top-50 translate-middle-y" aria-label="Close" onClick={onClose}></button>
+        </div>
+        <small className="text-muted mt-1 ps-1" style={{ fontSize: '0.68rem', letterSpacing: '0.02em' }}>Powered by Autocept</small>
       </div>
       
       {/* FACULTY MENU (Standard) */}
       {(role === 'faculty' || role === 'mentor') && (
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item mb-2 px-3 text-muted small fw-bold">FACULTY MENU</li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/dashboard')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/dashboard')}`}
-            >
-              Dashboard Overview
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/directory')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/directory')}`}
-            >
-              Student Directory
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/students')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/students')}`}
-            >
-              Manage Students
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-             <button 
-              onClick={() => navigate('/faculty/engagement')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/engagement')}`}
-            >
-              Low Engagement
-            </button>
-          </li>
-           <li className="nav-item mb-2">
-             <button 
-              onClick={() => navigate('/faculty/class-health')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/class-health')}`}
-            >
-              Class Health
-            </button>
-          </li>
-           <li className="nav-item mb-2">
-             <button 
-              onClick={() => navigate('/faculty/assessment-analysis')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/assessment-analysis')}`}
-            >
-              Assessment Analysis
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/history')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/history')}`}
-            >
-              Attendance History
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/attendance')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/attendance')}`}
-            >
-              Upload Attendance
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/marks')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/marks')}`}
-            >
-              Upload Marks
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/faculty/class-updates')} 
-              className={`nav-link w-100 text-start ${isActive('/faculty/class-updates')}`}
-            >
-              Class Updates
-            </button>
-          </li>
-        </ul>
+        <motion.ul
+          className="nav nav-pills flex-column mb-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.li className="nav-item mb-2 px-3 text-muted small fw-bold" variants={itemVariants}>FACULTY MENU</motion.li>
+          <NavItem path="/faculty/dashboard" label="Dashboard Overview" />
+          <NavItem path="/faculty/directory" label="Student Directory" />
+          <NavItem path="/faculty/students" label="Manage Students" />
+          <NavItem path="/faculty/engagement" label="Low Engagement" />
+          <NavItem path="/faculty/class-health" label="Class Health" />
+          <NavItem path="/faculty/assessment-analysis" label="Assessment Analysis" />
+          <NavItem path="/faculty/history" label="Attendance History" />
+          <NavItem path="/faculty/attendance" label="Upload Attendance" />
+          <NavItem path="/faculty/marks" label="Upload Marks" />
+          <NavItem path="/faculty/class-updates" label="Class Updates" />
+        </motion.ul>
       )}
 
       {/* MENTOR MENU (Standard) */}
       {role === 'mentor' && (
-        <ul className="nav nav-pills flex-column mb-auto pt-3 border-top mt-3">
-          <li className="nav-item mb-2 px-3 text-muted small fw-bold">MENTOR MENU</li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/dashboard')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/dashboard')}`}
-            >
-              Mentee List
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/email')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/email')}`}
-            >
-              Email System
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/achievements')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/achievements')}`}
-            >
-              Pending Achievements
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/leaves')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/leaves')}`}
-            >
-              Medical Leaves
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/workload')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/workload')}`}
-            >
-              Workload Dashboard
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/mentor/effectiveness')} 
-              className={`nav-link w-100 text-start ${isActive('/mentor/effectiveness')}`}
-            >
-              Effectiveness Tracker
-            </button>
-          </li>
-        </ul>
+        <motion.ul
+          className="nav nav-pills flex-column mb-auto pt-3 border-top mt-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.li className="nav-item mb-2 px-3 text-muted small fw-bold" variants={itemVariants}>MENTOR MENU</motion.li>
+          <NavItem path="/mentor/dashboard" label="Mentee List" />
+          <NavItem path="/mentor/email" label="Email System" />
+          <NavItem path="/mentor/achievements" label="Pending Achievements" />
+          <NavItem path="/mentor/leaves" label="Medical Leaves" />
+          <NavItem path="/mentor/workload" label="Workload Dashboard" />
+          <NavItem path="/mentor/effectiveness" label="Effectiveness Tracker" />
+        </motion.ul>
       )}
 
       {/* STUDENT MENU */}
       {role === 'student' && (
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item mb-2 px-3 text-muted small fw-bold">STUDENT MENU</li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/dashboard')} 
-              className={`nav-link w-100 text-start ${isActive('/student/dashboard')}`}
-            >
-              My Dashboard
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/achievements')} 
-              className={`nav-link w-100 text-start ${isActive('/student/achievements')}`}
-            >
-              My Achievements
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/resources')} 
-              className={`nav-link w-100 text-start ${isActive('/student/resources')}`}
-            >
-              Exam Resources
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/leaves')} 
-              className={`nav-link w-100 text-start ${isActive('/student/leaves')}`}
-            >
-              Medical Leave
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/planner')} 
-              className={`nav-link w-100 text-start ${isActive('/student/planner')}`}
-            >
-              Academic Planner
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/attendance-recovery')} 
-              className={`nav-link w-100 text-start ${isActive('/student/attendance-recovery')}`}
-            >
-              Attendance Recovery
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/backlog-risk')} 
-              className={`nav-link w-100 text-start ${isActive('/student/backlog-risk')}`}
-            >
-              Backlog Risk
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/goals')} 
-              className={`nav-link w-100 text-start ${isActive('/student/goals')}`}
-            >
-              Goal Setting
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/mentorship-log')} 
-              className={`nav-link w-100 text-start ${isActive('/student/mentorship-log')}`}
-            >
-              Mentorship Log
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/profile')} 
-              className={`nav-link w-100 text-start ${isActive('/student/profile')}`}
-            >
-              My Profile
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/student/simulator')} 
-              className={`nav-link w-100 text-start ${isActive('/student/simulator')}`}
-            >
-              What-If Simulator
-            </button>
-          </li>
-        </ul>
+        <motion.ul
+          className="nav nav-pills flex-column mb-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.li className="nav-item mb-2 px-3 text-muted small fw-bold" variants={itemVariants}>STUDENT MENU</motion.li>
+          <NavItem path="/student/dashboard" label="My Dashboard" />
+          <NavItem path="/student/achievements" label="My Achievements" />
+          <NavItem path="/student/resources" label="Exam Resources" />
+          <NavItem path="/student/leaves" label="Medical Leave" />
+          <NavItem path="/student/planner" label="Academic Planner" />
+          <NavItem path="/student/attendance-recovery" label="Attendance Recovery" />
+          <NavItem path="/student/backlog-risk" label="Backlog Risk" />
+          <NavItem path="/student/goals" label="Goal Setting" />
+          <NavItem path="/student/mentorship-log" label="Mentorship Log" />
+          <NavItem path="/student/profile" label="My Profile" />
+          <NavItem path="/student/simulator" label="What-If Simulator" />
+        </motion.ul>
       )}
 
       {/* HOD MENU */}
       {role === 'hod' && (
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item mb-2 px-3 text-muted small fw-bold">HOD MENU</li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/dashboard')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/dashboard')}`}
-            >
-              Dept Analytics
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/failures')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/failures')}`}
-            >
-              Subject Failures
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/faculty-impact')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/faculty-impact')}`}
-            >
-              Faculty Impact
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/sem-comparison')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/sem-comparison')}`}
-            >
-              Sem Comparison
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/early-detention')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/early-detention')}`}
-            >
-              Early Detention
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/compliance')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/compliance')}`}
-            >
-              Audit & Compliance
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/hod/class-logs')} 
-              className={`nav-link w-100 text-start ${isActive('/hod/class-logs')}`}
-            >
-              Class Logs
-            </button>
-          </li>
-        </ul>
+        <motion.ul
+          className="nav nav-pills flex-column mb-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.li className="nav-item mb-2 px-3 text-muted small fw-bold" variants={itemVariants}>HOD MENU</motion.li>
+          <NavItem path="/hod/dashboard" label="Dept Analytics" />
+          <NavItem path="/hod/failures" label="Subject Failures" />
+          <NavItem path="/hod/faculty-impact" label="Faculty Impact" />
+          <NavItem path="/hod/sem-comparison" label="Sem Comparison" />
+          <NavItem path="/hod/early-detention" label="Early Detention" />
+          <NavItem path="/hod/compliance" label="Audit & Compliance" />
+          <NavItem path="/hod/class-logs" label="Class Logs" />
+        </motion.ul>
       )}
 
       {/* ADMIN MENU */}
       {role === 'admin' && (
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item mb-2 px-3 text-muted small fw-bold">ADMIN MENU</li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/dashboard')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/dashboard')}`}
-            >
-              System Admin
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/faculty')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/faculty')}`}
-            >
-              Faculty Mgmt
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/mentors')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/mentors')}`}
-            >
-              Mentor Assignment
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/academics')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/academics')}`}
-            >
-              Academic Structure
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/resources')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/resources')}`}
-            >
-              Resource Mgmt
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/calendar')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/calendar')}`}
-            >
-              Academic Calendar
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/config')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/config')}`}
-            >
-              System Config
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/data')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/data')}`}
-            >
-              Data Import/Export
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/email-logs')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/email-logs')}`}
-            >
-              Email Logs
-            </button>
-          </li>
-          <li className="nav-item mb-2">
-            <button 
-              onClick={() => navigate('/admin/logs')} 
-              className={`nav-link w-100 text-start ${isActive('/admin/logs')}`}
-            >
-              Audit Logs
-            </button>
-          </li>
-        </ul>
+        <motion.ul
+          className="nav nav-pills flex-column mb-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.li className="nav-item mb-2 px-3 text-muted small fw-bold" variants={itemVariants}>ADMIN MENU</motion.li>
+          <NavItem path="/admin/dashboard" label="System Admin" />
+          <NavItem path="/admin/faculty" label="Faculty Mgmt" />
+          <NavItem path="/admin/mentors" label="Mentor Assignment" />
+          <NavItem path="/admin/academics" label="Academic Structure" />
+          <NavItem path="/admin/resources" label="Resource Mgmt" />
+          <NavItem path="/admin/calendar" label="Academic Calendar" />
+          <NavItem path="/admin/config" label="System Config" />
+          <NavItem path="/admin/data" label="Data Import/Export" />
+          <NavItem path="/admin/email-logs" label="Email Logs" />
+          <NavItem path="/admin/logs" label="Audit Logs" />
+        </motion.ul>
       )}
 
-      <div className="mt-auto p-2 bg-light rounded text-center small text-muted">
-        &copy; 2025 KSV University
-      </div>
-    </div>
+      <motion.div
+        className="mt-auto d-flex flex-column align-items-center gap-1 p-2 text-center"
+        style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderRadius: '12px' }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
+      >
+        <span className="small text-muted" style={{ fontSize: '0.72rem', color: '#86868b' }}>&copy; 2026 KSV University</span>
+        <motion.div
+          className="d-flex align-items-center gap-2 mt-1 justify-content-center"
+          style={{ fontSize: '0.72rem', color: '#515154' }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <span>Powered by</span>
+          <span style={{ fontFamily: "'Akira Expanded', sans-serif", fontSize: '0.65rem', color: '#1d1d1f', letterSpacing: '0.05em' }}>AUTOCEPT</span>
+          <motion.img
+            src={autoceptLogo} alt="Autocept"
+            style={{ height: '18px', width: 'auto', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.1)' }}
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          />
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

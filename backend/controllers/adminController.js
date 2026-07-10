@@ -8,6 +8,9 @@ const AcademicCalendar = require('../models/AcademicCalendar');
 const SystemConfig = require('../models/SystemConfig');
 const { generateMonthlyReports } = require('../utils/cronJobs');
 
+const fs = require('fs');
+const path = require('path');
+
 // @desc    Get System Stats
 // @route   GET /api/admin/stats
 // @access  Private (Admin)
@@ -15,12 +18,19 @@ const getSystemStats = asyncHandler(async (req, res) => {
   const studentCount = await User.countDocuments({ role: 'student' });
   const facultyCount = await User.countDocuments({ role: 'faculty' });
   const mentorCount = await User.countDocuments({ role: 'mentor' });
+  const hodCount = await User.countDocuments({ role: 'hod' });
+  const adminCount = await User.countDocuments({ role: 'admin' });
+  const totalUsers = await User.countDocuments({});
+  const activeSessions = await User.countDocuments({ isActive: true });
   
   res.json({
       students: studentCount,
       faculty: facultyCount,
       mentors: mentorCount,
-      totalUsers: studentCount + facultyCount + mentorCount
+      hods: hodCount,
+      admins: adminCount,
+      totalUsers,
+      activeSessions
   });
 });
 
@@ -95,6 +105,28 @@ const updateUserRole = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       role: updatedUser.role,
       message: 'User role updated'
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Toggle User Status (Activate/Deactivate)
+// @route   PUT /api/admin/users/:id/status
+// @access  Private (Admin)
+const toggleUserStatus = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    if (user.email === 'admin@ksv.ac.in') {
+      res.status(400);
+      throw new Error('Cannot deactivate super admin');
+    }
+    user.isActive = !user.isActive;
+    await user.save();
+    res.json({ 
+      message: `User status set to ${user.isActive ? 'Active' : 'Inactive'}`, 
+      isActive: user.isActive 
     });
   } else {
     res.status(404);
@@ -281,9 +313,6 @@ const resetSemester = asyncHandler(async (req, res) => {
 // @access  Private (Admin)
 const downloadSystemLogs = asyncHandler(async (req, res) => {
     // Generate a log file on the fly
-    // Include Email Logs, Class Updates (as proxy for activity)
-    // and maybe some mock system events for "realism" if real audit log missing.
-    
     const EmailLog = require('../models/EmailLog');
     const ClassUpdate = require('../models/ClassUpdate');
     
@@ -317,13 +346,102 @@ const triggerMonthlyReports = asyncHandler(async (req, res) => {
     res.json({ message: 'Monthly Reports Generation Started in Background.' });
 });
 
+// @desc    Trigger Database Backup
+// @route   POST /api/admin/system/backup
+// @access  Private (Admin)
+const triggerBackup = asyncHandler(async (req, res) => {
+  try {
+    const backupDir = path.join(__dirname, '../backups');
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+
+    const users = await User.find({});
+    const students = await Student.find({});
+    const faculty = await Faculty.find({});
+    const calendar = await AcademicCalendar.find({});
+    const config = await SystemConfig.find({});
+
+    const backupData = {
+      timestamp: new Date().toISOString(),
+      collections: {
+        users,
+        students,
+        faculty,
+        calendar,
+        config
+      }
+    };
+
+    const fileName = `backup_${Date.now()}.json`;
+    const filePath = path.join(backupDir, fileName);
+    fs.writeFileSync(filePath, JSON.stringify(backupData, null, 2));
+
+    const statusValue = {
+      lastBackupTime: new Date().toISOString(),
+      status: 'success',
+      fileName,
+      fileSize: fs.statSync(filePath).size
+    };
+
+    // Update backup status in system config
+    await SystemConfig.findOneAndUpdate(
+      { key: 'last_backup_status' },
+      { 
+        value: statusValue,
+        description: 'Last system backup status'
+      },
+      { new: true, upsert: true }
+    );
+
+    res.json({
+      message: 'Backup completed successfully',
+      ...statusValue
+    });
+  } catch (err) {
+    const statusValue = {
+      lastBackupTime: new Date().toISOString(),
+      status: 'failed',
+      error: err.message
+    };
+    await SystemConfig.findOneAndUpdate(
+      { key: 'last_backup_status' },
+      { 
+        value: statusValue,
+        description: 'Last system backup status'
+      },
+      { new: true, upsert: true }
+    );
+    res.status(500);
+    throw new Error('Backup failed: ' + err.message);
+  }
+});
+
+// @desc    Get Backup Status
+// @route   GET /api/admin/system/backup/status
+// @access  Private (Admin)
+const getBackupStatus = asyncHandler(async (req, res) => {
+  const statusConfig = await SystemConfig.findOne({ key: 'last_backup_status' });
+  if (statusConfig) {
+    res.json(statusConfig.value);
+  } else {
+    res.json({
+      lastBackupTime: null,
+      status: 'never_backed_up',
+      fileName: null,
+      fileSize: 0
+    });
+  }
+});
+
 module.exports = { 
-    getSystemStats, getAllUsers, deleteUser, createUser, updateUserRole,
+    getSystemStats, getAllUsers, deleteUser, createUser, updateUserRole, toggleUserStatus,
     addFacultyProfile, getAllFaculty,
     assignMentor,
     createDepartment, getDepartments, createSubject, getSubjects,
     addCalendarEvent, getCalendarEvents,
     updateSystemConfig, getSystemConfig,
     resetSemester, downloadSystemLogs,
-    triggerMonthlyReports
+    triggerMonthlyReports,
+    triggerBackup, getBackupStatus
 };
